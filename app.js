@@ -1,6 +1,6 @@
 
 
-fetch("data/xian2026.json")
+fetch("data/travel-guide.json")
 
 .then(response => response.json())
 
