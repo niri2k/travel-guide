@@ -287,6 +287,12 @@ localStorage.getItem("expenses")
 function addExpense(){
 
 
+let date =
+document.getElementById(
+"expenseDate"
+).value;
+
+
 let amount =
 Number(
 document.getElementById(
@@ -295,12 +301,10 @@ document.getElementById(
 );
 
 
-
 let memo =
 document.getElementById(
 "expenseMemo"
 ).value;
-
 
 
 expenses.push({
