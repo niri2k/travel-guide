@@ -24,51 +24,110 @@ showTrips();
 function showTrips(){
 
 
-let html="";
+let categories = {
+
+    upcoming:{
+        title:"✈️ 다가올 여행",
+        items:[]
+    },
+
+    active:{
+        title:"🌏 여행 중",
+        items:[]
+    },
+
+    memory:{
+        title:"📸 여행의 기억",
+        items:[]
+    }
+
+};
+
 
 
 trips.forEach(trip=>{
 
 
-html += `
+    if(categories[trip.status]){
 
+        categories[trip.status]
+        .items
+        .push(trip);
 
-<div class="trip"
-onclick="openTrip('${trip.file}')">
+    }
 
-
-<h3>
-
-${trip.title}
-
-</h3>
-
-
-<p>
-
-${trip.date}
-
-</p>
-
-
-<p>
-
-${trip.status}
-
-</p>
-
-
-</div>
-
-
-`;
 
 });
 
 
-document.getElementById(
-"tripList"
-).innerHTML=html;
+
+let html="";
+
+
+
+Object.values(categories)
+.forEach(category=>{
+
+
+    html += `
+
+    <h2>
+    ${category.title}
+    </h2>
+
+    `;
+
+
+    if(category.items.length===0){
+
+        html += `
+        <p>
+        등록된 여행이 없습니다.
+        </p>
+        `;
+
+    }
+
+
+
+    category.items.forEach(trip=>{
+
+
+        html += `
+
+
+        <div class="trip"
+
+        onclick="openTrip('${trip.file}')">
+
+
+        <h3>
+        ${trip.title}
+        </h3>
+
+
+        <p>
+        📅 ${trip.date}
+        </p>
+
+
+        </div>
+
+
+        `;
+
+
+    });
+
+
+
+});
+
+
+
+document
+.getElementById("tripList")
+.innerHTML=html;
 
 
 }
