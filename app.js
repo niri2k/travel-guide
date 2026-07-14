@@ -20,6 +20,14 @@ showTrips();
 });
 
 
+function getToday(){
+
+    let today = new Date();
+
+    return today.toISOString()
+    .substring(0,10);
+
+}
 
 
 function showTrips(){
