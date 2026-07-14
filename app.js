@@ -309,13 +309,11 @@ document.getElementById(
 
 expenses.push({
 
-amount:amount,
+date: date,
 
-memo:memo,
+amount: amount,
 
-date:
-new Date()
-.toLocaleDateString()
+memo: memo
 
 });
 
