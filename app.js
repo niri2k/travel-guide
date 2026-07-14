@@ -1,4 +1,5 @@
 
+let currentTrip="";
 let trips=[];
 
 
@@ -137,7 +138,19 @@ document
 
 function openTrip(file){
 
+currentTrip=file;
 
+expenses =
+JSON.parse(
+localStorage.getItem(
+"expenses_"+currentTrip
+)
+)
+|| [];
+
+showExpenses();
+
+    
 fetch("trips/"+file)
 
 .then(res=>res.json())
@@ -294,7 +307,7 @@ new Date()
 
 localStorage.setItem(
 
-"expenses",
+"expenses_"+currentTrip,
 
 JSON.stringify(expenses)
 
