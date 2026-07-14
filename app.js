@@ -158,6 +158,10 @@ localStorage.getItem(
 
 showExpenses();
 
+document.getElementById(
+"expenseDate"
+).value = getToday();
+
     
 fetch("trips/"+file)
 
