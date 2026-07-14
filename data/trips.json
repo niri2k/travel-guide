@@ -2,7 +2,16 @@
 {
 "title":"🇨🇳 Xi'an 2026",
 "date":"2026.07.18 ~ 2026.07.24",
-"status":"다가올 여행",
+"status":"upcoming",
+"statusText":"다가올 여행",
 "file":"xian2026.json"
+},
+
+{
+"title":"🇯🇵 Tokyo 2026",
+"date":"2026.04.24 ~ 2026.04.28",
+"status":"memory",
+"statusText":"여행의 기억",
+"file":"tokyo2026.json"
 }
 ]
