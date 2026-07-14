@@ -1,5 +1,5 @@
-
 <!DOCTYPE html>
+
 <html lang="ko">
 
 <head>
@@ -9,8 +9,9 @@
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
+
 <title>
-Xi'an 2026 Travel Guide
+Travel Guide
 </title>
 
 
@@ -26,11 +27,11 @@ Xi'an 2026 Travel Guide
 <header>
 
 <h1>
-🇨🇳 Xi'an 2026
+🌍 Travel Guide
 </h1>
 
 <p>
-2026.07.18 ~ 2026.07.24
+나만의 여행 기록 앱
 </p>
 
 </header>
@@ -43,36 +44,11 @@ Xi'an 2026 Travel Guide
 <section class="card">
 
 <h2>
-✈️ 여행 Dashboard
+✈️ 여행 목록
 </h2>
 
 
-<p>
-상태 :
-<span id="status">
-다가올 여행
-</span>
-</p>
-
-
-<button>
-📥 오프라인 저장
-</button>
-
-
-</section>
-
-
-
-<section class="card">
-
-
-<h2>
-📅 일정
-</h2>
-
-
-<div id="schedule">
+<div id="tripList">
 
 불러오는 중...
 
@@ -83,42 +59,28 @@ Xi'an 2026 Travel Guide
 
 
 
-<section class="card">
+<section id="tripDetail"
+class="card hidden">
 
 
-<h2>
-💰 비용 입력
-</h2>
+<h2 id="tripTitle"></h2>
 
 
-<input 
-id="money"
-placeholder="금액(CNY)"
->
+<div id="schedule">
 
-
-<input
-id="memo"
-placeholder="메모"
->
-
-
-<button onclick="saveExpense()">
-저장
-</button>
+</div>
 
 
 </section>
 
 
-
 </main>
+
 
 
 <script src="app.js"></script>
 
 
 </body>
-
 
 </html>
