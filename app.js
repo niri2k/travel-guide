@@ -248,3 +248,135 @@ document
 
 
 }
+
+
+
+let expenses =
+JSON.parse(
+localStorage.getItem("expenses")
+)
+|| [];
+
+
+
+function addExpense(){
+
+
+let amount =
+Number(
+document.getElementById(
+"expenseAmount"
+).value
+);
+
+
+
+let memo =
+document.getElementById(
+"expenseMemo"
+).value;
+
+
+
+expenses.push({
+
+amount:amount,
+
+memo:memo,
+
+date:
+new Date()
+.toLocaleDateString()
+
+});
+
+
+
+localStorage.setItem(
+
+"expenses",
+
+JSON.stringify(expenses)
+
+);
+
+
+
+showExpenses();
+
+
+}
+
+
+
+function showExpenses(){
+
+
+let total=0;
+
+let html="";
+
+
+
+expenses.forEach(item=>{
+
+
+total += item.amount;
+
+
+
+html += `
+
+<div class="place">
+
+<p>
+${item.date}
+</p>
+
+
+<h4>
+
+${item.memo}
+
+</h4>
+
+
+<p>
+
+${item.amount} CNY
+
+</p>
+
+
+</div>
+
+`;
+
+
+
+});
+
+
+
+document
+.getElementById(
+"totalExpense"
+)
+.innerHTML=
+
+total+" CNY";
+
+
+
+document
+.getElementById(
+"expenseList"
+)
+.innerHTML=html;
+
+
+}
+
+
+
+showExpenses();
