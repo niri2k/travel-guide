@@ -1,65 +1,176 @@
 {
-
 "title":"🇨🇳 Xi'an 2026",
+
+"currency":"CNY",
 
 "days":[
 
-
 {
 "day":1,
+
 "title":"도착 + 종루 + 회민가",
-"description":
-"공항 이동, 종루 야경, 회민가 음식"
+
+"places":[
+
+{
+"name":"종루 钟楼",
+"map":"https://maps.google.com",
+"cost":30
+},
+
+{
+"name":"회민가 回民街",
+"map":"https://maps.google.com",
+"cost":100
+}
+
+]
+
 },
 
 
 {
 "day":2,
+
 "title":"병마용 + 화청궁 + 장한가",
-"description":
-"진시황 병마용, 화청궁, 장한가 공연"
+
+"places":[
+
+{
+"name":"진시황 병마용",
+"map":"https://maps.google.com",
+"cost":150
+},
+
+{
+"name":"화청궁",
+"map":"https://maps.google.com",
+"cost":120
+},
+
+{
+"name":"장한가 공연",
+"map":"https://maps.google.com",
+"cost":500
+}
+
+]
+
 },
 
 
 {
 "day":3,
+
 "title":"화산",
-"description":
-"서봉 케이블카, 남봉, 장공잔도 선택"
+
+"places":[
+
+{
+"name":"화산 서봉 케이블카",
+"map":"https://maps.google.com",
+"cost":200
+},
+
+{
+"name":"장공잔도 (선택)",
+"map":"https://maps.google.com",
+"cost":30
+}
+
+]
+
 },
 
 
 {
 "day":4,
+
 "title":"대안탑 + 대당불야성",
-"description":
-"당나라 문화와 야경"
+
+"places":[
+
+{
+"name":"대안탑",
+"map":"https://maps.google.com",
+"cost":40
+},
+
+{
+"name":"대당불야성",
+"map":"https://maps.google.com",
+"cost":0
+}
+
+]
+
 },
 
 
 {
 "day":5,
-"title":"시안 성벽 + 쇼핑",
-"description":
-"성벽 관광, 비림박물관, 마트 쇼핑"
+
+"title":"성벽 + 쇼핑",
+
+"places":[
+
+{
+"name":"시안 성벽",
+"map":"https://maps.google.com",
+"cost":54
+},
+
+{
+"name":"마트 쇼핑",
+"map":"https://maps.google.com",
+"cost":200
+}
+
+]
+
 },
 
 
 {
 "day":6,
-"title":"소안탑 + 박물관 + 마사지",
-"description":
-"휴식 일정과 마지막 여행 정리"
+
+"title":"박물관 + 마사지",
+
+"places":[
+
+{
+"name":"시안박물원",
+"map":"https://maps.google.com",
+"cost":0
+},
+
+{
+"name":"마사지",
+"map":"https://maps.google.com",
+"cost":150
+}
+
+]
+
 },
 
 
 {
 "day":7,
+
 "title":"귀국",
-"description":
-"공항 이동"
+
+"places":[
+
+{
+"name":"시안 공항",
+"map":"https://maps.google.com",
+"cost":0
 }
 
+]
+
+}
 
 ]
 
