@@ -167,32 +167,73 @@ data.days.forEach(day=>{
 
 html += `
 
-
 <div class="day">
 
 
 <h3>
-
 DAY ${day.day}
-
 <br>
-
 ${day.title}
-
 </h3>
+
+`;
+
+
+day.places.forEach(place=>{
+
+
+html += `
+
+<div class="place">
+
+
+<h4>
+📍 ${place.name}
+</h4>
+
+
+<p>
+💰 예상 비용:
+${place.cost} ${data.currency}
+</p>
+
+
+<button onclick="window.open('${place.map}')">
+
+지도 보기
+
+</button>
 
 
 <p>
 
-${day.description}
+⭐ ☆☆☆☆☆
 
 </p>
 
 
+<textarea
+placeholder="후기 작성">
+</textarea>
+
+
 </div>
 
+`;
+
+
+
+});
+
+
+
+html += `
+
+</div>
 
 `;
+
+
 
 });
 
