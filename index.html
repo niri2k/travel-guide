@@ -53,40 +53,54 @@ Travel Guide
 </div>
 
 
-<section class="card">
-
-<h2>
-💰 여행 비용 관리
-</h2>
+<section id="tripDetail"
+class="card hidden">
 
 
-<p>
-현재 사용 금액
-</p>
+<h2 id="tripTitle"></h2>
 
 
-<h3 id="totalExpense">
-0 CNY
+
+<h3>
+📅 일정
 </h3>
 
+
+<div id="schedule">
+
+</div>
+
+
+
+<h3>
+💰 여행 비용
+</h3>
+
+
+<div id="expenseArea">
+
+
+<h4 id="totalExpense">
+0 CNY
+</h4>
 
 
 <input 
 id="expenseAmount"
-placeholder="금액 (CNY)"
+placeholder="금액(CNY)"
 type="number"
 >
 
 
 <input
 id="expenseMemo"
-placeholder="사용 내용"
+placeholder="내용"
 />
 
 
 <button onclick="addExpense()">
 
-추가
+비용 추가
 
 </button>
 
@@ -95,19 +109,6 @@ placeholder="사용 내용"
 
 </div>
 
-
-</section>
-
-
-
-<section id="tripDetail"
-class="card hidden">
-
-
-<h2 id="tripTitle"></h2>
-
-
-<div id="schedule">
 
 </div>
 
