@@ -99,35 +99,23 @@ Object.values(categories)
 
 
     category.items.forEach(trip=>{
-
-
         html += `
-
-
         <div class="trip"
-
         onclick="openTrip('${trip.file}')">
-
 
         <h3>
         ${trip.title}
         </h3>
 
-
         <p>
         📅 ${trip.date}
         </p>
 
-
         </div>
-
 
         `;
 
-
     });
-
-
 
 });
 
@@ -141,17 +129,13 @@ document
 }
 
 
-
-
 function openTrip(file){
 
 currentTrip=file;
 currentCurrency =
 data.currency;
 
-
 loadExchange();
-
     
 expenses =
 JSON.parse(
@@ -169,37 +153,24 @@ document.getElementById(
 
     
 fetch("trips/"+file)
-
 .then(res=>res.json())
-
 .then(data=>{
-
 
 document
 .getElementById("tripDetail")
 .classList
 .remove("hidden");
 
-
-
 document
 .getElementById("tripTitle")
 .innerHTML=
 data.title;
 
-
-
 let html="";
 
-
 data.days.forEach(day=>{
-
-
 html += `
-
 <div class="day">
-
-
 <h3>
 DAY ${day.day}
 <br>
@@ -211,22 +182,18 @@ ${day.title}
 
 day.places.forEach(place=>{
 
-
 html += `
 
 <div class="place">
-
 
 <h4>
 📍 ${place.name}
 </h4>
 
-
 <p>
 💰 예상 비용:
 ${place.cost} ${data.currency}
 </p>
-
 
 <button onclick="window.open('${place.map}')">
 
@@ -252,9 +219,7 @@ placeholder="후기 작성">
 `;
 
 
-
 });
-
 
 
 html += `
@@ -264,9 +229,7 @@ html += `
 `;
 
 
-
 });
-
 
 
 document
@@ -280,13 +243,11 @@ document
 }
 
 
-
 let expenses =
 JSON.parse(
 localStorage.getItem("expenses")
 )
 || [];
-
 
 
 function addExpense(){
@@ -313,11 +274,8 @@ document.getElementById(
 
 
 expenses.push({
-
 date: date,
-
 amount: amount,
-
 memo: memo
 
 });
@@ -325,20 +283,15 @@ memo: memo
 
 
 localStorage.setItem(
-
 "expenses_"+currentTrip,
-
 JSON.stringify(expenses)
 
 );
 
 
-
 showExpenses();
 
-
 }
-
 
 
 function showExpenses(){
@@ -349,13 +302,9 @@ let total=0;
 let html="";
 
 
-
 expenses.forEach(item=>{
 
-
 total += item.amount;
-
-
 
 html += `
 
@@ -365,18 +314,25 @@ html += `
 ${item.date}
 </p>
 
-
 <h4>
 
 ${item.memo}
 
 </h4>
 
-
 <p>
 
-${item.amount} CNY
+${item.amount} ${currentCurrency}
 
+<br>
+
+≈
+
+${Math.round(
+item.amount * exchangeRate
+)}
+
+원
 </p>
 
 
@@ -385,9 +341,7 @@ ${item.amount} CNY
 `;
 
 
-
 });
-
 
 
 document
