@@ -1,238 +1,66 @@
 <!DOCTYPE html>
-
 <html lang="ko">
-
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Guide</title>
+    
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics-compat.js"></script>
 
-<!-- (1) <head> 안쪽에 아래 라이브러리 추가 -->
-<!-- Firebase SDK v9.x Compat (글로벌 window 바인딩을 유지해 기존 코드 호환성 100% 확보!) -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics-compat.js"></script>
-
-  <div style="display:flex; justify-content:space-between; align-items:center;">
-    <div>
-      <h1>🌍 Travel Guide</h1>
-      <h3 id="mainTitle">님을 위한 실시간 여행 가이드 & 가계부</h3>
-    </div>
-    <div style="text-align:right; display:flex; align-items:center; gap:10px;">
-      <span id="adminBadge" style="display:none; color: red; font-weight: bold; margin-left: 10px;">👑 ADMIN</span>
-      <span id="userInfo" class="hidden" style="color:#cbd5e1; font-weight:bold; font-size:14px;"></span>
-      <button id="loginBtn" onclick="openLoginModal()" style="background:#2563eb; color:white; font-size:14px; padding:6px 14px; border-radius:12px; border:none; font-weight:bold; cursor:pointer;">로그인</button>
-      <button id="logoutBtn" onclick="logout()" class="hidden" style="background:#475569; color:white; font-size:14px; padding:6px 14px; border-radius:12px; border:none; font-weight:bold; cursor:pointer;">로그아웃</button>
-    </div>
-  </div>
-  
-<meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<title>
-Travel Guide
-</title>
-
-<link rel="stylesheet" href="style.css">
-
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* 하와이 해변 배경 설정 */
+        body {
+            background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)),
+                        url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+        }
+    </style>
 </head>
-
 
 <body>
 
-
-<header>
-
-<h1>
-🌍 Travel Guide
-</h1>
-
-<p>
-나만의 여행 기록 앱
-</p>
-
+<header style="padding: 20px; background: rgba(255,255,255,0.8); border-bottom: 1px solid #e2e8f0;">
+  <div style="display:flex; justify-content:space-between; align-items:center; max-width: 800px; margin: 0 auto;">
+    <div>
+      <h1 style="margin:0; font-size: 24px;">🌍 Travel Guide</h1>
+      <h3 id="mainTitle" style="margin:5px 0 0 0; color: #475569;">사용자를 위한 실시간 여행 가이드 & 가계부</h3>
+    </div>
+    <div style="text-align:right; display:flex; align-items:center; gap:10px;">
+      <span id="adminBadge" style="display:none; color: red; font-weight: bold;">👑 ADMIN</span>
+      <span id="userInfo" class="hidden" style="color:#1e293b; font-weight:bold;"></span>
+      <button id="loginBtn" onclick="openLoginModal()" style="background:#2563eb; color:white; padding:6px 14px; border-radius:12px; border:none; cursor:pointer;">로그인</button>
+      <button id="logoutBtn" onclick="logout()" class="hidden" style="background:#475569; color:white; padding:6px 14px; border-radius:12px; border:none; cursor:pointer;">로그아웃</button>
+    </div>
+  </div>
 </header>
 
-
-
-<!-- ==================================================== -->
-<!-- Floating Action Button (새로 교체된 영역) -->
-<!-- ==================================================== -->
-<div class="fab-container" id="fabContainer">
-  <!-- 위로 펼쳐지는 서브 메뉴 목록 -->
-  <ul class="fab-menu">
-    <li class="fab-item" onclick="openExpenseForm()">
-      <span class="fab-label">💰 비용 추가</span>
-      <button class="fab-sub-btn">💰</button>
-    </li>
-    <li class="fab-item" onclick="openScheduleForm()">
-      <span class="fab-label">📅 일정 추가</span>
-      <button class="fab-sub-btn">📅</button>
-    </li>
-    <li class="fab-item" onclick="openPlaceForm()">
-      <span class="fab-label">📍 장소 기록</span>
-      <button class="fab-sub-btn">📍</button>
-    </li>
-    <li class="fab-item" onclick="openReviewForm()">
-      <span class="fab-label">⭐ 후기 작성</span>
-      <button class="fab-sub-btn">⭐</button>
-    </li>
-  </ul>
-
-  <!-- 메인 토글 버튼 (+) -->
-  <button class="fab-main-btn" id="fabToggle" onclick="toggleFab(event)">
-    <span class="fab-icon">＋</span>
-  </button>
-</div>
-
-<main>
-
-
-<section class="card">
-
-
-<h2>
-✈️ 여행 목록
-</h2>
-
-
-<div id="tripList">
-
-불러오는 중...
-
-</div>
-
-
-</section>
-
-
-
-
-
-<section id="tripDetail"
-class="card hidden">
-
-
-<h2 id="tripTitle">
-
-</h2>
-
-
-<p id="exchangeRate">
-
-</p>
-
-
-
-<h3>
-📅 일정
-</h3>
-
-
-<div id="schedule">
-
-</div>
-
-
-
-
-
-<h3>
-💰 여행 비용
-</h3>
-
-
-<h3 id="totalExpense">
-
-0 CNY
-
-</h3>
-
-
-<p id="totalKRW">
-
-0원
-
-</p>
-
-
-
-<label>
-📅 사용 날짜
-</label>
-
-<input
-id="expenseDate"
-type="date"
->
-
-
-<label>
-💰 금액
-</label>
-
-<input 
-id="expenseAmount"
-type="number"
-placeholder="CNY 금액 입력"
->
-
-
-<label>
-📝 사용 내용
-</label>
-
-<input
-id="expenseMemo"
-placeholder="예: 병마용 입장료"
->
-
-
-
-<button onclick="addExpense()">
-
-비용 추가
-
-</button>
-
-
-
-<div id="expenseList"></div>
-
-    <div style="margin-top: 40px; border-top: 3px dashed #cbd5e1; padding-top: 30px;">
-      <h2 style="margin-bottom: 5px;">⭐ 여행 추억 & 생생 후기</h2>
-      <p style="color:#64748b; font-size:16px; margin-top:0; margin-bottom:20px;">방문했던 명소나 오늘의 일정이 어땠는지 남겨보세요.</p>
-
-      <label>⭐ 만족도 별점</label>
-      <select id="reviewRating">
-        <option value="⭐⭐⭐⭐⭐">⭐⭐⭐⭐⭐ (5점 - 최고예요! 완벽한 일정)</option>
-        <option value="⭐⭐⭐⭐">⭐⭐⭐⭐ (4점 - 아주 좋았어요)</option>
-        <option value="⭐⭐⭐">⭐⭐⭐ (3점 - 무난하고 괜찮았어요)</option>
-        <option value="⭐⭐">⭐⭐ (2점 - 조금 아쉬웠어요)</option>
-        <option value="⭐">⭐ (1점 - 기대 이하였어요)</option>
-      </select>
-
-      <label>📝 후기 및 꿀팁 메모</label>
-      <textarea id="reviewText" placeholder="예: 병마용은 사람이 정말 많으니 아침 일찍 가는 걸 추천! 장한가 공연 감동 그 자체 😭"></textarea>
-
-      <button onclick="addReview()" style="background: linear-gradient(135deg, #10b981, #059669); color:white; width:100%; height:56px; font-size:18px; font-weight:700; border:none; border-radius:16px; margin-top:15px; box-shadow: 0 6px 16px rgba(16, 185, 129, 0.3); cursor:pointer;">
-        ✍️ 후기 등록하기
-      </button>
-
-      <div id="reviewList" style="margin-top: 25px;"></div>
-    </div>
-
-</section>
-
-
-
+<main style="max-width: 800px; margin: 20px auto; padding: 0 15px;">
+    <section class="card">
+        <h2>✈️ 여행 목록</h2>
+        <div id="tripList">불러오는 중...</div>
+    </section>
+
+    <section id="tripDetail" class="card hidden">
+        <h2 id="tripTitle"></h2>
+        <p id="exchangeRate"></p>
+        <h3>📅 일정</h3>
+        <div id="schedule"></div>
+        <h3>💰 여행 비용</h3>
+        <h3 id="totalExpense">0 CNY</h3>
+        <p id="totalKRW">0원</p>
+        
+        <div id="expenseList"></div>
+        <div id="reviewList" style="margin-top: 25px;"></div>
+    </section>
 </main>
 
-
-<script src="js/firebase-config.js"></script> <!-- 1순위 -->
-  
-<script src="js/auth.js"></script>            <!-- 2순위 -->
-  
+<script src="js/firebase-config.js"></script>
+<script src="js/auth.js"></script>
 <script src="js/exchange.js"></script>
 <script src="js/expense.js"></script>
 <script src="js/review.js"></script>
@@ -241,29 +69,5 @@ placeholder="예: 병마용 입장료"
 <script src="js/floating.js"></script>
 <script src="app.js"></script>
 
-
-<div id="loginModal" class="hidden" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(15,23,42,0.6); backdrop-filter:blur(4px); display:flex; align-items:center; justify-content:center; z-index:99999;">
-  <div class="card" style="width:90%; max-width:400px; padding:30px; border-radius:24px; box-shadow:0 20px 40px rgba(0,0,0,0.3); background:white; position:relative;">
-    <button onclick="closeLoginModal()" style="position:absolute; top:15px; right:15px; background:none; border:none; font-size:24px; color:#64748b; cursor:pointer;">&times;</button>
-    <h3 style="margin-top:0; font-size:24px; font-weight:800; text-align:center; color:#0f172a;">🔐 클라우드 동기화</h3>
-    <p style="text-align:center; color:#64748b; font-size:14px; margin-top:5px; margin-bottom:25px;">로그인하면 PC와 모바일 간 실시간 데이터 동기화가 활성화됩니다.</p>
-    
-    <label style="margin-top:0;">📧 이메일 주소</label>
-    <input type="email" id="loginEmail" placeholder="example@email.com" style="margin-bottom:15px;">
-    
-    <label>🔑 비밀번호 (6자 이상)</label>
-    <input type="password" id="loginPassword" placeholder="••••••">
-    
-    <div style="display:flex; gap:10px; margin-top:25px;">
-      <button onclick="login()" style="flex:1; height:52px; background:#2563eb; color:white; font-size:16px; font-weight:700; border:none; border-radius:14px; cursor:pointer; box-shadow:0 4px 12px rgba(37,99,235,0.3);">로그인</button>
-      <button onclick="signUp()" style="flex:1; height:52px; background:#10b981; color:white; font-size:16px; font-weight:700; border:none; border-radius:14px; cursor:pointer; box-shadow:0 4px 12px rgba(16,185,129,0.3);">회원가입</button>
-    </div>
-  </div>
-</div>
-
-
-  
 </body>
-
-
 </html>
