@@ -9,14 +9,11 @@
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-
 <title>
 Travel Guide
 </title>
 
-
 <link rel="stylesheet" href="style.css">
-
 
 </head>
 
@@ -43,6 +40,7 @@ Travel Guide
 
 <section class="card">
 
+
 <h2>
 ✈️ 여행 목록
 </h2>
@@ -50,14 +48,29 @@ Travel Guide
 
 <div id="tripList">
 
+불러오는 중...
+
 </div>
+
+
+</section>
+
+
+
 
 
 <section id="tripDetail"
 class="card hidden">
 
 
-<h2 id="tripTitle"></h2>
+<h2 id="tripTitle">
+
+</h2>
+
+
+<p id="exchangeRate">
+
+</p>
 
 
 
@@ -72,58 +85,48 @@ class="card hidden">
 
 
 
-<div>
-
-<p>
-💱 환율
-</p>
-
-<p id="exchangeRate">
-
-</p>
-
-</div>
 
 
 <h3>
+💰 여행 비용
+</h3>
 
-총 사용 금액
+
+<h3 id="totalExpense">
+
+0 CNY
 
 </h3>
 
 
-<h2 id="totalKRW">
+<p id="totalKRW">
 
 0원
 
-</h2>
+</p>
 
-
-<div id="expenseArea">
-
-
-<h4 id="totalExpense">
-0 CNY
-</h4>
 
 
 <input
 id="expenseDate"
 type="date"
-/>
+>
 
 
-<input 
+
+<input
 id="expenseAmount"
-placeholder="금액(CNY)"
 type="number"
-/>
+placeholder="금액"
+>
+
 
 
 <input
 id="expenseMemo"
-placeholder="내용"
-/>
+placeholder="사용 내용"
+>
+
 
 
 <button onclick="addExpense()">
@@ -133,15 +136,15 @@ placeholder="내용"
 </button>
 
 
+
 <div id="expenseList">
 
 </div>
 
 
-</div>
-
 
 </section>
+
 
 
 </main>
@@ -152,5 +155,6 @@ placeholder="내용"
 
 
 </body>
+
 
 </html>
