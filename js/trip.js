@@ -51,7 +51,7 @@ function openTrip(file) {
             <div class="place">
               <h4>📍 ${place.name}</h4>
               <p>💰 예상 비용 : ${place.cost} ${data.currency}</p>
-              <button onclick="openMap('${place.map}')">지도 보기</button>
+              <button onclick="openMap('${place.map}', '${place.name}')">🗺️ 지도 보기</button>
             </div>
           `;
         });
