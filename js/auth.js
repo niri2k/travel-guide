@@ -93,3 +93,21 @@ async function logout() {
 function updateAuthUI(user) { /* 기존과 동일 */ }
 function openLoginModal() { document.getElementById("loginModal").classList.remove("hidden"); }
 function closeLoginModal() { document.getElementById("loginModal").classList.add("hidden"); }
+
+
+ // 모달 제어 함수 (이 함수가 있어야 로그인 버튼을 눌렀을 때 모달이 뜹니다)
+function openLoginModal() {
+  const modal = document.getElementById("loginModal");
+  if (modal) {
+    modal.classList.remove("hidden");
+  } else {
+    console.error("loginModal 요소를 찾을 수 없습니다.");
+  }
+}
+
+function closeLoginModal() {
+  const modal = document.getElementById("loginModal");
+  if (modal) {
+    modal.classList.add("hidden");
+  }
+}                         
