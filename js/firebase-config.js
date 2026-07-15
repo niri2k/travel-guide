@@ -6,6 +6,7 @@ const firebaseConfig = {
   storageBucket: "travel-guide-0001.firebasestorage.app",
   messagingSenderId: "510310143636",
   appId: "1:510310143636:web:7ea8886fc583e888628681",
+  measurementId: "G-2C4SZKVP05"
 };
 
 // 1. 여기서 초기화
