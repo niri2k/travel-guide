@@ -3,7 +3,7 @@ let currentCurrency = "";
 let tripStartDate = ""; 
 let tripDaysMap = {}; 
 
-// 1. 여행 목록 로드 (Firestore 사용)
+// 1. 여행 목록 로드
 async function loadTrips() {
   const tripList = document.getElementById("tripList");
   if (!tripList) return;
@@ -32,7 +32,7 @@ async function loadTrips() {
   }
 }
 
-// 2. 특정 여행 상세 보기 (Firestore 사용)
+// 2. 특정 여행 상세 보기
 async function openTrip(tripId) {
   currentTrip = tripId;
   try {
@@ -65,12 +65,12 @@ async function openTrip(tripId) {
         if (day.places) {
           day.places.forEach((place) => {
             let safeMapUrl = place.map ? place.map.replace(/'/g, "%27") : "";
-            let safeName = place.name ? place.name.replace(/'/g, "\\'") : "";
+            // 버튼에 onclick 대신 data 속성을 부여하여 Firebase의 링크 간섭을 차단
             html += `
               <div class="place">
                 <h4>📍 ${place.name}</h4>
                 <p>💰 예상 비용 : ${place.cost} ${data.currency}</p>
-                <button onclick="openMap('${safeMapUrl}', '${safeName}')">🗺️ 지도 보기</button>
+                <button class="map-btn" data-url="${safeMapUrl}">🗺️ 지도 보기</button>
               </div>
             `;
           });
@@ -79,13 +79,12 @@ async function openTrip(tripId) {
         html += `</div> 
                  <div id="day-expenses-${dateStr}" class="day-expenses-container"></div>
                  <div id="day-total-${dateStr}" class="day-total-box hidden"></div>
-        </div>`;
+           </div>`;
       });
     }
 
     document.getElementById("schedule").innerHTML = html;
     
-    // 비용 및 후기 로드
     if (typeof loadExpenses === "function") loadExpenses();
     if (typeof loadReviews === "function") loadReviews();
   } catch (err) {
@@ -93,5 +92,4 @@ async function openTrip(tripId) {
   }
 }
 
-// 페이지 로드 시 실행
 document.addEventListener("DOMContentLoaded", loadTrips);
