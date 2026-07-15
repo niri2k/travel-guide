@@ -4,6 +4,25 @@
 
 <head>
 
+<!-- (1) <head> 안쪽에 아래 라이브러리 추가 -->
+<!-- Firebase SDK v9.x Compat (글로벌 window 바인딩을 유지해 기존 코드 호환성 100% 확보!) -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+  <div style="display:flex; justify-content:space-between; align-items:center;">
+    <div>
+      <h1>🌍 Travel Guide</h1>
+      <p>김현일님의 실시간 여행 가이드 & 가계부</p>
+    </div>
+    <div style="text-align:right; display:flex; align-items:center; gap:10px;">
+      <span id="adminBadge" class="hidden" style="background:#ef4444; color:white; font-size:12px; font-weight:800; padding:4px 8px; border-radius:10px; box-shadow:0 2px 6px rgba(239,68,68,0.4);">👑 ADMIN</span>
+      <span id="userInfo" class="hidden" style="color:#cbd5e1; font-weight:bold; font-size:14px;"></span>
+      <button id="loginBtn" onclick="openLoginModal()" style="background:#2563eb; color:white; font-size:14px; padding:6px 14px; border-radius:12px; border:none; font-weight:bold; cursor:pointer;">로그인</button>
+      <button id="logoutBtn" onclick="logout()" class="hidden" style="background:#475569; color:white; font-size:14px; padding:6px 14px; border-radius:12px; border:none; font-weight:bold; cursor:pointer;">로그아웃</button>
+    </div>
+  </div>
+  
 <meta charset="UTF-8">
 
 <meta name="viewport"
@@ -209,15 +228,36 @@ placeholder="예: 병마용 입장료"
 </main>
 
 
+<script src="js/firebase-config.js"></script> <!-- 1순위 -->
+<script src="js/auth.js"></script>            <!-- 2순위 -->
 <script src="js/exchange.js"></script>
 <script src="js/expense.js"></script>
-<script src="js/map.js"></script>
 <script src="js/review.js"></script>
-<script src="js/floating.js"></script>
-
+<script src="js/map.js"></script>
 <script src="js/trip.js"></script>
-
+<script src="js/floating.js"></script>
 <script src="app.js"></script>
+
+
+<div id="loginModal" class="hidden" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(15,23,42,0.6); backdrop-filter:blur(4px); display:flex; align-items:center; justify-content:center; z-index:99999;">
+  <div class="card" style="width:90%; max-width:400px; padding:30px; border-radius:24px; box-shadow:0 20px 40px rgba(0,0,0,0.3); background:white; position:relative;">
+    <button onclick="closeLoginModal()" style="position:absolute; top:15px; right:15px; background:none; border:none; font-size:24px; color:#64748b; cursor:pointer;">&times;</button>
+    <h3 style="margin-top:0; font-size:24px; font-weight:800; text-align:center; color:#0f172a;">🔐 클라우드 동기화</h3>
+    <p style="text-align:center; color:#64748b; font-size:14px; margin-top:5px; margin-bottom:25px;">로그인하면 PC와 모바일 간 실시간 데이터 동기화가 활성화됩니다.</p>
+    
+    <label style="margin-top:0;">📧 이메일 주소</label>
+    <input type="email" id="loginEmail" placeholder="example@email.com" style="margin-bottom:15px;">
+    
+    <label>🔑 비밀번호 (6자 이상)</label>
+    <input type="password" id="loginPassword" placeholder="••••••">
+    
+    <div style="display:flex; gap:10px; margin-top:25px;">
+      <button onclick="login()" style="flex:1; height:52px; background:#2563eb; color:white; font-size:16px; font-weight:700; border:none; border-radius:14px; cursor:pointer; box-shadow:0 4px 12px rgba(37,99,235,0.3);">로그인</button>
+      <button onclick="signUp()" style="flex:1; height:52px; background:#10b981; color:white; font-size:16px; font-weight:700; border:none; border-radius:14px; cursor:pointer; box-shadow:0 4px 12px rgba(16,185,129,0.3);">회원가입</button>
+    </div>
+  </div>
+</div>
+
 
   
 </body>
