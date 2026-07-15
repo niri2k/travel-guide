@@ -1,13 +1,15 @@
 // js/map.js
-function openMap(url) {
-    if (!url || url.length < 5) {
-        alert("지도 정보가 등록되지 않았습니다.");
-        return;
+// document 전체에서 map-btn 클래스를 가진 버튼 클릭을 감지합니다.
+document.addEventListener('click', function(e) {
+    if (e.target && e.target.classList.contains('map-btn')) {
+        const url = e.target.getAttribute('data-url');
+        
+        if (!url || url.length < 5 || url.includes("goo.gl/maps/...")) {
+            alert("지도 정보가 올바르게 등록되지 않았습니다.");
+            return;
+        }
+        
+        // 보안 옵션을 넣어서 Firebase가 가로채지 못하게 함
+        window.open(url, "_blank", "noopener,noreferrer");
     }
-
-    // [핵심] window.open의 두 번째 인자에 "_blank"를 넣고,
-    // 세 번째 인자에 'noopener' 옵션을 주면
-    // 브라우저는 이를 보안이 강화된 새 탭으로 인식하여
-    // Firebase SDK가 Dynamic Link로 가로채는 것을 방지합니다.
-    window.open(url, "_blank", "noopener,noreferrer");
-}
+});
