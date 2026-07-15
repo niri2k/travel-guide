@@ -177,14 +177,67 @@ placeholder="예: 병마용 입장료"
 
 
 
-<div id="expenseList">
+<div id="expenseList"></div>
 
-</div>
+    <div style="margin-top: 40px; border-top: 3px dashed #cbd5e1; padding-top: 30px;">
+      <h2 style="margin-bottom: 5px;">⭐ 여행 추억 & 생생 후기</h2>
+      <p style="color:#64748b; font-size:16px; margin-top:0; margin-bottom:20px;">방문했던 명소나 오늘의 일정이 어땠는지 남겨보세요.</p>
 
+      <label>⭐ 만족도 별점</label>
+      <select id="reviewRating">
+        <option value="⭐⭐⭐⭐⭐">⭐⭐⭐⭐⭐ (5점 - 최고예요! 완벽한 일정)</option>
+        <option value="⭐⭐⭐⭐">⭐⭐⭐⭐ (4점 - 아주 좋았어요)</option>
+        <option value="⭐⭐⭐">⭐⭐⭐ (3점 - 무난하고 괜찮았어요)</option>
+        <option value="⭐⭐">⭐⭐ (2점 - 조금 아쉬웠어요)</option>
+        <option value="⭐">⭐ (1점 - 기대 이하였어요)</option>
+      </select>
 
+      <label>📝 후기 및 꿀팁 메모</label>
+      <textarea id="reviewText" placeholder="예: 병마용은 사람이 정말 많으니 아침 일찍 가는 걸 추천! 장한가 공연 감동 그 자체 😭"></textarea>
 
-</section>
+      <button onclick="addReview()" style="background: linear-gradient(135deg, #10b981, #059669); color:white; width:100%; height:56px; font-size:18px; font-weight:700; border:none; border-radius:16px; margin-top:15px; box-shadow: 0 6px 16px rgba(16, 185, 129, 0.3); cursor:pointer;">
+        ✍️ 후기 등록하기
+      </button>
 
+      <div id="reviewList" style="margin-top: 25px;"></div>
+    </div>
+
+</section> ```
+
+*(💡 팁: 하단에 `<script src="js/review.js"></script>` 와 `<script src="js/map.js"></script>` 가 잘 연결되어 있는지 한 번 더 확인해 주세요!)*
+
+---
+
+## 4단계: `style.css` 맨 밑에 후기 카드 스타일 추가
+
+마지막으로 새로 작성되는 후기 카드가 아이폰 화면에서 예쁘고 고급스럽게 보이도록 CSS를 추가합니다. **`style.css` 가장 아래쪽에 복사해서 붙여넣어 주세요!**
+
+```css
+/* =========================================
+   8. ⭐ 여행 후기 카드 스타일
+========================================= */
+
+/* 후기 카드는 앰버/옐로우 골드 톤으로 따뜻하고 특별하게 강조 */
+.review-card {
+  border: 2px solid #fde68a !important;
+  background: #fffbeb !important;
+  box-shadow: 0 6px 16px rgba(245, 158, 11, 0.08) !important;
+  margin-top: 16px !important;
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 후기 영역 내 select 박스 화살표 디자인 보완 */
+#reviewRating {
+  font-weight: 700;
+  color: #b45309;
+  background-color: #fffbeb;
+  border-color: #fcd34d;
+}
 
 
 </main>
