@@ -155,3 +155,15 @@ function getFriendlyErrorMessage(code) {
     default: return "알 수 없는 에러가 발생했습니다. (" + code + ")";
   }
 }
+
+
+// auth.js 하단의 함수 수정
+function getFriendlyErrorMessage(code) {
+  console.log("발생한 에러 코드:", code); // 👈 이걸 추가하면 콘솔에서 확인 가능!
+  if (!code) return "네트워크 연결을 확인하거나 Firebase 설정을 다시 확인해주세요.";
+  
+  switch (code) {
+    // ... 기존 코드 유지
+    default: return "알 수 없는 에러가 발생했습니다. 코드: " + code;
+  }
+}
