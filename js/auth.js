@@ -56,6 +56,7 @@ function updateAuthUI(user) {
   const logoutBtn = document.getElementById("logoutBtn");
   const userInfo = document.getElementById("userInfo");
   const adminBadge = document.getElementById("adminBadge");
+  const mainTitle = document.getElementById("mainTitle");
 
   if (user) {
     if (loginBtn) loginBtn.classList.add("hidden");
@@ -64,6 +65,10 @@ function updateAuthUI(user) {
       userInfo.innerHTML = `👤 ${user.email.split('@')[0]}님`;
       userInfo.classList.remove("hidden");
     }
+    if (mainTitle) mainTitle.innerText = `${user.email.split('@')[0]}님을 위한 실시간 여행 가이드 & 가계부`;
+  } else {
+    if (mainTitle) mainTitle.innerText = "사용자를 위한 실시간 여행 가이드 & 가계부";
+  }
     
     // 관리자 배지 표시 로직
     if (adminBadge) {
