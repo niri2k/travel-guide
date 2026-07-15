@@ -1,15 +1,12 @@
 // js/map.js
-// document 전체에서 map-btn 클래스를 가진 버튼 클릭을 감지합니다.
-document.addEventListener('click', function(e) {
-    if (e.target && e.target.classList.contains('map-btn')) {
-        const url = e.target.getAttribute('data-url');
-        
-        if (!url || url.length < 5 || url.includes("goo.gl/maps/...")) {
-            alert("지도 정보가 올바르게 등록되지 않았습니다.");
-            return;
-        }
-        
-        // 보안 옵션을 넣어서 Firebase가 가로채지 못하게 함
-        window.open(url, "_blank", "noopener,noreferrer");
+function openMap(url) {
+    // 1. 만약 googleusercontent.com 주소라면 강제로 구글 지도 메인으로 보냄 (에러 방지)
+    if (url.includes("googleusercontent.com")) {
+        console.warn("잘못된 주소 형식 발견, 구글 지도 메인으로 이동합니다.");
+        window.open("https://www.google.com/maps", "_blank", "noopener,noreferrer");
+        return;
     }
-});
+
+    // 2. 정상적인 주소는 그대로 오픈
+    window.open(url, "_blank", "noopener,noreferrer");
+}
