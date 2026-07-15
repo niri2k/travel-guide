@@ -6,7 +6,8 @@ let tripDaysMap = {}; // 날짜와 Day 번호 매핑용
 function openTrip(file) {
   currentTrip = file;
   fetch("trips/" + file)
-    .then((res) => res.json())ㅁlet currentTrip = "";
+    .then((res) => res.json())
+let currentTrip = "";
 let currentCurrency = "";
 let tripStartDate = ""; 
 let tripDaysMap = {}; 
