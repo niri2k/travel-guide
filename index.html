@@ -69,5 +69,20 @@
 <script src="js/floating.js"></script>
 <script src="app.js"></script>
 
+<div id="loginModal" class="hidden" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(15,23,42,0.6); backdrop-filter:blur(4px); display:flex; align-items:center; justify-content:center; z-index:99999;">
+  <div class="card" style="width:90%; max-width:400px; padding:30px; border-radius:24px; box-shadow:0 20px 40px rgba(0,0,0,0.3); background:white; position:relative;">
+    <button onclick="closeLoginModal()" style="position:absolute; top:15px; right:15px; background:none; border:none; font-size:24px; color:#64748b; cursor:pointer;">&times;</button>
+    <h3 style="margin-top:0; font-size:24px; font-weight:800; text-align:center; color:#0f172a;">🔐 클라우드 동기화</h3>
+    <label>📧 이메일 주소</label>
+    <input type="email" id="loginEmail" placeholder="example@email.com" style="margin-bottom:15px;">
+    <label>🔑 비밀번호 (6자 이상)</label>
+    <input type="password" id="loginPassword" placeholder="••••••">
+    <div style="display:flex; gap:10px; margin-top:25px;">
+      <button onclick="login()" style="flex:1; height:52px; background:#2563eb; color:white; font-size:16px; font-weight:700; border:none; border-radius:14px; cursor:pointer;">로그인</button>
+      <button onclick="signUp()" style="flex:1; height:52px; background:#10b981; color:white; font-size:16px; font-weight:700; border:none; border-radius:14px; cursor:pointer;">회원가입</button>
+    </div>
+  </div>
+</div>
+    
 </body>
 </html>
