@@ -412,3 +412,43 @@ document
 
 
 showExpenses();
+
+
+function loadExchange(){
+
+
+fetch(
+"data/exchange.json"
+)
+
+.then(res=>res.json())
+
+.then(data=>{
+
+
+exchangeRate =
+data[currentCurrency];
+
+
+document
+.getElementById(
+"exchangeRate"
+)
+.innerHTML =
+
+`
+1 ${currentCurrency}
+=
+${exchangeRate}원
+
+`;
+
+
+
+showExpenses();
+
+
+});
+
+
+}
