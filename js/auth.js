@@ -80,7 +80,7 @@ function updateAuthUI(user) {
     if (userInfo) userInfo.classList.add("hidden");
     if (adminBadge) adminBadge.style.display = "none";
   }
-}
+
 
 // 로그인
 async function login() {
