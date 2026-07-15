@@ -404,9 +404,10 @@ document
 .innerHTML =
 
 `
-1 ${currentCurrency}
-=
-${exchangeRate}원
+💱 통화 : ${currentCurrency}
+/
+환율 : 1 ${currentCurrency} = ${exchangeRate}원
+(2026-07-15 기준)
 
 `;
 
