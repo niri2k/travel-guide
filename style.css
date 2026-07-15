@@ -6,6 +6,14 @@
 body {
   margin: 0;
   /* 배경과 카드가 확실히 구분되도록 차분한 블루-그레이 톤 적용 */
+  background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e'); /* 하와이 해변 이미지 */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  /* 배경 위에 글자가 잘 보이게 하려면 오버레이 추가 */
+  background-color: rgba(255, 255, 255, 0.8); 
+  background-blend-mode: lighten;
   background: #e8ebf0;
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Noto Sans KR", sans-serif;
   color: #1e293b;
