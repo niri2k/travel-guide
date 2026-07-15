@@ -1,17 +1,13 @@
 // js/map.js
 function openMap(url) {
-    // 1. 유효성 검사: URL이 없거나 에러가 나는 기본값이면 경고
-    if (!url || url.includes("goo.gl/maps/...")) {
+    if (!url || url.length < 5) {
         alert("지도 정보가 등록되지 않았습니다.");
         return;
     }
 
-    // 2. window.open에 "_blank"를 사용하여 
-    // 브라우저가 Firebase Dynamic Link로 인식하지 못하도록 별도 프로세스로 실행
-    const newWindow = window.open(url, "_blank", "noopener,noreferrer");
-    
-    // 만약 팝업 차단 등으로 열리지 않는 경우 대응
-    if (!newWindow) {
-        alert("팝업이 차단되었습니다. 설정을 확인해 주세요.");
-    }
+    // [핵심] window.open의 두 번째 인자에 "_blank"를 넣고,
+    // 세 번째 인자에 'noopener' 옵션을 주면
+    // 브라우저는 이를 보안이 강화된 새 탭으로 인식하여
+    // Firebase SDK가 Dynamic Link로 가로채는 것을 방지합니다.
+    window.open(url, "_blank", "noopener,noreferrer");
 }
