@@ -12,7 +12,6 @@
 
     <link rel="stylesheet" href="style.css">
     <style>
-        /* 하와이 해변 배경 설정 */
         body {
             background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)),
                         url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e') no-repeat center center fixed;
@@ -53,11 +52,35 @@
         <h3>💰 여행 비용</h3>
         <h3 id="totalExpense">0 CNY</h3>
         <p id="totalKRW">0원</p>
-        
         <div id="expenseList"></div>
         <div id="reviewList" style="margin-top: 25px;"></div>
     </section>
 </main>
+
+<div class="fab-container" id="fabContainer">
+  <ul class="fab-menu">
+    <li class="fab-item" onclick="openExpenseForm()"><span>💰 비용</span><button class="fab-sub-btn">💰</button></li>
+    <li class="fab-item" onclick="openScheduleForm()"><span>📅 일정</span><button class="fab-sub-btn">📅</button></li>
+    <li class="fab-item" onclick="openPlaceForm()"><span>📍 장소</span><button class="fab-sub-btn">📍</button></li>
+    <li class="fab-item" onclick="openReviewForm()"><span>⭐ 후기</span><button class="fab-sub-btn">⭐</button></li>
+  </ul>
+  <button class="fab-main-btn" id="fabToggle" onclick="toggleFab(event)">＋</button>
+</div>
+
+<div id="loginModal" class="hidden" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(15,23,42,0.6); backdrop-filter:blur(4px); display:flex; align-items:center; justify-content:center; z-index:99999;">
+  <div class="card" style="width:90%; max-width:400px; padding:30px; border-radius:24px; background:white; position:relative;">
+    <button onclick="closeLoginModal()" style="position:absolute; top:15px; right:15px; background:none; border:none; font-size:24px; cursor:pointer;">&times;</button>
+    <h3 style="text-align:center;">🔐 클라우드 동기화</h3>
+    <label>📧 이메일 주소</label>
+    <input type="email" id="loginEmail" placeholder="example@email.com" style="margin-bottom:15px; width:100%;">
+    <label>🔑 비밀번호</label>
+    <input type="password" id="loginPassword" placeholder="••••••" style="width:100%;">
+    <div style="display:flex; gap:10px; margin-top:25px;">
+      <button onclick="login()" style="flex:1; padding:10px; background:#2563eb; color:white; border:none; border-radius:12px; cursor:pointer;">로그인</button>
+      <button onclick="signUp()" style="flex:1; padding:10px; background:#10b981; color:white; border:none; border-radius:12px; cursor:pointer;">회원가입</button>
+    </div>
+  </div>
+</div>
 
 <script src="js/firebase-config.js"></script>
 <script src="js/auth.js"></script>
@@ -69,20 +92,5 @@
 <script src="js/floating.js"></script>
 <script src="app.js"></script>
 
-<div id="loginModal" class="hidden" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(15,23,42,0.6); backdrop-filter:blur(4px); display:flex; align-items:center; justify-content:center; z-index:99999;">
-  <div class="card" style="width:90%; max-width:400px; padding:30px; border-radius:24px; box-shadow:0 20px 40px rgba(0,0,0,0.3); background:white; position:relative;">
-    <button onclick="closeLoginModal()" style="position:absolute; top:15px; right:15px; background:none; border:none; font-size:24px; color:#64748b; cursor:pointer;">&times;</button>
-    <h3 style="margin-top:0; font-size:24px; font-weight:800; text-align:center; color:#0f172a;">🔐 클라우드 동기화</h3>
-    <label>📧 이메일 주소</label>
-    <input type="email" id="loginEmail" placeholder="example@email.com" style="margin-bottom:15px;">
-    <label>🔑 비밀번호 (6자 이상)</label>
-    <input type="password" id="loginPassword" placeholder="••••••">
-    <div style="display:flex; gap:10px; margin-top:25px;">
-      <button onclick="login()" style="flex:1; height:52px; background:#2563eb; color:white; font-size:16px; font-weight:700; border:none; border-radius:14px; cursor:pointer;">로그인</button>
-      <button onclick="signUp()" style="flex:1; height:52px; background:#10b981; color:white; font-size:16px; font-weight:700; border:none; border-radius:14px; cursor:pointer;">회원가입</button>
-    </div>
-  </div>
-</div>
-    
 </body>
 </html>
