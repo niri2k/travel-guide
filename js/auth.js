@@ -45,6 +45,12 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+
+
+// auth.js의 updateAuthUI 함수 바로 위에 추가
+console.log("현재 로그인한 유저의 권한(userRole):", userRole);
+
+
 // UI 업데이트
 function updateAuthUI(user) {
   const loginBtn = document.getElementById("loginBtn");
