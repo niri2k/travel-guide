@@ -13,27 +13,41 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  // 실시간 로그인 상태 감지
-  firebase.auth().onAuthStateChanged(async (user) => {
-    if (user) {
-      currentUser = user;
-      try {
-        const userDoc = await firebase.firestore().collection("users").doc(user.uid).get();
-        if (userDoc.exists) {
-          userRole = userDoc.data().role || "user";
-        } else {
-          await firebase.firestore().collection("users").doc(user.uid).set({
-            email: user.email,
-            role: "user",
-            createdAt: firebase.firestore.FieldValue.serverTimestamp()
-          });
-          userRole = "user";
-        }
-      } catch (err) {
-        console.error("유저 정보 로드 실패:", err);
+ 브라우저를 새로고침한 후 [다시 로그인] 하세요.
+
+다시 로그인하는 순간 콘솔에 현재 권한: admin이라고 찍히는지 확인하세요.
+
+2. Firestore 데이터 확인 (중요)
+혹시 Firestore에 문서가 여러 개 생겨있지는 않은지 확인해 보세요.
+
+[Firebase 콘솔] -> [Firestore Database] -> users 컬렉션으로 들어갑니다.
+
+문서 ID가 현재 로그인한 계정의 UID와 정확히 일치하는지 확인하세요. (가끔 잘못된 문서 ID의 role을 수정하고, 정작 로그인한 계정은 다른 문서 ID를 읽고 있을 수 있습니다.)
+
+3. 강제 코드 업데이트 (디버깅용)
+만약 로그아웃/로그인을 다시 해도 계속 user라고 뜬다면, 아래 코드로 auth.js의 onAuthStateChanged 함수 내부를 살짝 바꿔서 강제로 Firestore를 다시 긁어오게 해봅시다.
+
+JavaScript
+// auth.js의 onAuthStateChanged 함수 내부를 수정
+firebase.auth().onAuthStateChanged(async (user) => {
+  if (user) {
+    currentUser = user;
+    try {
+      // 👈 캐시를 무시하고 서버에서 최신 데이터를 가져오도록 get({source: 'server'}) 옵션 추가
+      const userDoc = await firebase.firestore().collection("users").doc(user.uid).get({source: 'server'});
+      
+      if (userDoc.exists) {
+        userRole = userDoc.data().role || "user";
+        console.log("서버에서 불러온 권한:", userRole); // 👈 로그 확인
+      } else {
+        // ... (이하 동일)
       }
-      updateAuthUI(user);
-    } else {
+    } catch (err) {
+      console.error("유저 정보 로드 실패:", err);
+      userRole = "user";
+    }
+    updateAuthUI(user);
+  } else {
       currentUser = null;
       userRole = "user";
       updateAuthUI(null);
