@@ -1,12 +1,15 @@
 // js/map.js
-function openMap(url) {
-    // 1. 만약 googleusercontent.com 주소라면 강제로 구글 지도 메인으로 보냄 (에러 방지)
-    if (url.includes("googleusercontent.com")) {
-        console.warn("잘못된 주소 형식 발견, 구글 지도 메인으로 이동합니다.");
-        window.open("https://www.google.com/maps", "_blank", "noopener,noreferrer");
-        return;
+document.addEventListener('click', function(e) {
+    if (e.target && e.target.classList.contains('map-btn')) {
+        const url = e.target.getAttribute('data-url');
+        
+        // 1. 혹시라도 잘못된(Firebase 간섭용) 주소라면 구글 지도 검색창으로 보냄
+        if (!url || url.includes("googleusercontent.com")) {
+            const placeName = e.target.getAttribute('data-name');
+            window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(placeName)}`, "_blank", "noopener");
+        } else {
+            // 2. 정상 주소라면 바로 오픈
+            window.open(url, "_blank", "noopener");
+        }
     }
-
-    // 2. 정상적인 주소는 그대로 오픈
-    window.open(url, "_blank", "noopener,noreferrer");
-}
+});
