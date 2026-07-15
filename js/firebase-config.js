@@ -43,3 +43,11 @@ if (firebaseConfig.apiKey && firebaseConfig.apiKey !== "YOUR_API_KEY") {
 } else {
   console.warn("⚠️ Firebase 설정이 비어있습니다. 로컬 스토리지(오프라인) 모드로 작동합니다.");
 }
+
+
+// js/firebase-config.js 하단에 추가
+if (typeof firebase !== 'undefined') {
+  console.log("Firebase SDK 로드 완료");
+} else {
+  console.error("Firebase SDK 로드 실패! index.html 순서를 확인하세요.");
+}
