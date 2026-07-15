@@ -35,50 +35,35 @@ Travel Guide
 
 
 
-<!-- Floating Action Button -->
+<!-- ==================================================== -->
+<!-- Floating Action Button (새로 교체된 영역) -->
+<!-- ==================================================== -->
+<div class="fab-container" id="fabContainer">
+  <!-- 위로 펼쳐지는 서브 메뉴 목록 -->
+  <ul class="fab-menu">
+    <li class="fab-item" onclick="openExpenseForm()">
+      <span class="fab-label">💰 비용 추가</span>
+      <button class="fab-sub-btn">💰</button>
+    </li>
+    <li class="fab-item" onclick="openScheduleForm()">
+      <span class="fab-label">📅 일정 추가</span>
+      <button class="fab-sub-btn">📅</button>
+    </li>
+    <li class="fab-item" onclick="openPlaceForm()">
+      <span class="fab-label">📍 장소 기록</span>
+      <button class="fab-sub-btn">📍</button>
+    </li>
+    <li class="fab-item" onclick="openReviewForm()">
+      <span class="fab-label">⭐ 후기 작성</span>
+      <button class="fab-sub-btn">⭐</button>
+    </li>
+  </ul>
 
-<div id="fabMenu"
-class="fab-menu hidden">
-
-
-<button onclick="openExpenseForm()">
-
-💰 비용 추가
-
-</button>
-
-
-<button onclick="openScheduleForm()">
-
-📅 일정 추가
-
-</button>
-
-
-<button onclick="openPlaceForm()">
-
-📍 장소 기록
-
-</button>
-
-
-<button onclick="openReviewForm()">
-
-⭐ 후기 작성
-
-</button>
-
-
+  <!-- 메인 토글 버튼 (+) -->
+  <button class="fab-main-btn" id="fabToggle" onclick="toggleFab(event)">
+    <span class="fab-icon">＋</span>
+  </button>
 </div>
-
-
-
-<button id="fab"
-onclick="toggleFab()">
-
-＋
-
-</button>
 
 <main>
 
