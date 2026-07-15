@@ -395,3 +395,69 @@ textarea {
 .fab-container.open .fab-icon {
   transform: rotate(45deg);
 }
+
+
+/* =========================================
+   7. ⭐ 일자별 지출 카드 & 총 합계 배지 스타일
+========================================= */
+
+/* 지출 카드: 방문 예정 장소와 확실히 구분되도록 에메랄드 그린 톤 적용 */
+.expense-card {
+  border: 2px solid #a7f3d0 !important;
+  background: #ecfdf5 !important;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.08) !important;
+  margin-top: 12px !important;
+}
+
+/* Day별 총합계 컨테이너 */
+.day-total-box {
+  margin: 20px 0 30px;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Day별 총합계 배지 디자인 (고급스러운 블루 그래디언트 박스) */
+.day-total-badge {
+  background: linear-gradient(135deg, #eff6ff, #dbeafe);
+  border: 2px solid #bfdbfe;
+  padding: 18px 22px;
+  border-radius: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.1);
+}
+
+.day-total-badge .badge-title {
+  align-self: flex-start;
+  font-size: 14px;
+  font-weight: 800;
+  color: #1d4ed8;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 4px 12px;
+  border-radius: 10px;
+}
+
+.day-total-badge .badge-amount {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: 4px;
+}
+
+.day-total-badge .badge-amount strong {
+  font-size: 26px;
+  font-weight: 800;
+  color: #1e3a8a;
+  letter-spacing: -0.5px;
+}
+
+.day-total-badge .badge-amount span {
+  font-size: 17px;
+  font-weight: 600;
+  color: #475569;
+}
