@@ -146,7 +146,13 @@ document
 function openTrip(file){
 
 currentTrip=file;
+currentCurrency =
+data.currency;
 
+
+loadExchange();
+
+    
 expenses =
 JSON.parse(
 localStorage.getItem(
