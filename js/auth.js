@@ -71,18 +71,26 @@ function updateAuthUI(user) {
 }
 
 // 로그인
-// js/auth.js의 login 함수 부분
+// js/auth.js 내 login 함수를 이렇게 교체하세요
 async function login() {
   const email = document.getElementById("loginEmail").value.trim();
   const password = document.getElementById("loginPassword").value;
+  
+  console.log("로그인 시도:", email); // 로그 확인용
+
   try {
     await firebase.auth().signInWithEmailAndPassword(email, password);
     closeLoginModal();
     alert("로그인 성공!");
   } catch (error) {
-    // 👈 상세 에러 확인용 코드
-    console.error("Firebase 상세 에러:", error);
-    alert("로그인 실패: " + error.message + "\n(콘솔의 빨간 에러 메시지를 확인해주세요)");
+    // 상세 에러 객체 전체를 콘솔에 출력합니다.
+    console.error("=== 상세 에러 정보 시작 ===");
+    console.dir(error); 
+    console.error("에러 코드:", error.code);
+    console.error("에러 메시지:", error.message);
+    console.error("=== 상세 에러 정보 끝 ===");
+    
+    alert("로그인 실패: " + error.code + "\n" + error.message);
   }
 }
 // 회원가입
