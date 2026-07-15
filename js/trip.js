@@ -46,12 +46,16 @@ function openTrip(file) {
             <div class="places-list">
         `;
 
-        day.places.forEach((place) => {
+day.places.forEach((place) => {
+          // ⭐ [핵심 해결법] Xi'an 등의 작은따옴표(') 때문에 자바스크립트가 깨지는 현상 완벽 방지!
+          let safeMapUrl = place.map ? place.map.replace(/'/g, "%27") : "";
+          let safeName = place.name ? place.name.replace(/'/g, "\\'") : "";
+
           html += `
             <div class="place">
               <h4>📍 ${place.name}</h4>
               <p>💰 예상 비용 : ${place.cost} ${data.currency}</p>
-              <button onclick="openMap('${place.map}', '${place.name}')">🗺️ 지도 보기</button>
+              <button onclick="openMap('${safeMapUrl}', '${safeName}')">🗺️ 지도 보기</button>
             </div>
           `;
         });
