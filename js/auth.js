@@ -76,7 +76,13 @@ async function logout() {
 }
 
 function openLoginModal() {
-    document.getElementById("loginModal").classList.remove("hidden");
+    const modal = document.getElementById("loginModal");
+    if (!modal) {
+        console.error("오류: index.html에 'loginModal' ID를 가진 요소가 없습니다!");
+        alert("로그인 창을 열 수 없습니다. HTML 파일을 확인하세요.");
+        return;
+    }
+    modal.classList.remove("hidden");
 }
 
 function closeLoginModal() {
