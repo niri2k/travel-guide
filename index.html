@@ -18,6 +18,8 @@
             background-size: cover;
             min-height: 100vh;
         }
+        .hidden { display: none !important; }
+        .place-card:hover { transform: translateY(-2px); transition: all 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
     </style>
 </head>
 
@@ -51,46 +53,4 @@
         <div id="schedule"></div>
         <h3>💰 여행 비용</h3>
         <h3 id="totalExpense">0 CNY</h3>
-        <p id="totalKRW">0원</p>
-        <div id="expenseList"></div>
-        <div id="reviewList" style="margin-top: 25px;"></div>
-    </section>
-</main>
-
-<div class="fab-container" id="fabContainer">
-  <ul class="fab-menu">
-    <li class="fab-item" onclick="openExpenseForm()"><span>💰 비용</span><button class="fab-sub-btn">💰</button></li>
-    <li class="fab-item" onclick="openScheduleForm()"><span>📅 일정</span><button class="fab-sub-btn">📅</button></li>
-    <li class="fab-item" onclick="openPlaceForm()"><span>📍 장소</span><button class="fab-sub-btn">📍</button></li>
-    <li class="fab-item" onclick="openReviewForm()"><span>⭐ 후기</span><button class="fab-sub-btn">⭐</button></li>
-  </ul>
-  <button class="fab-main-btn" id="fabToggle" onclick="toggleFab(event)">＋</button>
-</div>
-
-<div id="loginModal" class="hidden" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(15,23,42,0.6); backdrop-filter:blur(4px); display:flex; align-items:center; justify-content:center; z-index:99999;">
-  <div class="card" style="width:90%; max-width:400px; padding:30px; border-radius:24px; background:white; position:relative;">
-    <button onclick="closeLoginModal()" style="position:absolute; top:15px; right:15px; background:none; border:none; font-size:24px; cursor:pointer;">&times;</button>
-    <h3 style="text-align:center;">🔐 클라우드 동기화</h3>
-    <label>📧 이메일 주소</label>
-    <input type="email" id="loginEmail" placeholder="example@email.com" style="margin-bottom:15px; width:100%;">
-    <label>🔑 비밀번호</label>
-    <input type="password" id="loginPassword" placeholder="••••••" style="width:100%;">
-    <div style="display:flex; gap:10px; margin-top:25px;">
-      <button onclick="login()" style="flex:1; padding:10px; background:#2563eb; color:white; border:none; border-radius:12px; cursor:pointer;">로그인</button>
-      <button onclick="signUp()" style="flex:1; padding:10px; background:#10b981; color:white; border:none; border-radius:12px; cursor:pointer;">회원가입</button>
-    </div>
-  </div>
-</div>
-
-<script src="js/firebase-config.js"></script>
-<script src="js/auth.js"></script>
-<script src="js/exchange.js"></script>
-<script src="js/expense.js"></script>
-<script src="js/review.js"></script>
-<script src="js/map.js"></script>
-<script src="js/trip.js"></script>
-<script src="js/floating.js"></script>
-<script src="app.js"></script>
-
-</body>
-</html>
+        <p id="totalKRW">0원</
