@@ -1,5 +1,10 @@
 
 let currentTrip="";
+
+let currentCurrency="CNY";
+
+let exchangeRate=0;
+
 let trips=[];
 
 
