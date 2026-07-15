@@ -1,8 +1,3 @@
-// ====================================================
-// Firebase 설정 및 초기화 (js/firebase-config.js)
-// ====================================================
-
-// TODO: Firebase 콘솔에서 복사한 본인의 설정값으로 대체하세요!
 <script type="module">
   // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
@@ -26,23 +21,3 @@
   const app = initializeApp(firebaseConfig);
   const analytics = getAnalytics(app);
 </script>
-
-
-let db = null;
-let auth = null;
-let firebaseEnabled = false;
-
-// 설정값이 기본값이 아닐 때만 Firebase 작동 (로컬 테스트 및 배포 안정성 확보)
-if (firebaseConfig.apiKey && firebaseConfig.apiKey !== "YOUR_API_KEY") {
-  try {
-    firebase.initializeApp(firebaseConfig);
-    db = firebase.firestore();
-    auth = firebase.auth();
-    firebaseEnabled = true;
-    console.log("🔥 Firebase가 정상적으로 초기화되었습니다.");
-  } catch (error) {
-    console.error("❌ Firebase 초기화 실패:", error);
-  }
-} else {
-  console.warn("⚠️ Firebase 설정이 비어있습니다. 로컬 스토리지(오프라인) 모드로 작동합니다.");
-}
