@@ -299,6 +299,8 @@ function showExpenses(){
 
 let total=0;
 
+let totalKRW=0;
+    
 let html="";
 
 
@@ -306,6 +308,9 @@ expenses.forEach(item=>{
 
 total += item.amount;
 
+totalKRW +=
+item.amount * exchangeRate;
+    
 html += `
 
 <div class="place">
@@ -352,7 +357,15 @@ document
 
 total+" CNY";
 
+document
+.getElementById(
+"totalKRW"
+)
+.innerHTML =
 
+Math.round(totalKRW)
+.toLocaleString()
++"원";
 
 document
 .getElementById(
