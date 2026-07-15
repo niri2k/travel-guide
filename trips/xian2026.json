@@ -1,177 +1,339 @@
 {
-"title":"🇨🇳 Xi'an 2026",
-
-"currency":"CNY",
-
-"days":[
-
-{
-"day":1,
-
-"title":"도착 + 종루 + 회민가",
-
-"places":[
-
-{
-"name":"종루 钟楼",
-"map":"https://maps.google.com",
-"cost":30
-},
-
-{
-"name":"회민가 回民街",
-"map":"https://maps.google.com",
-"cost":100
-}
-
-]
-
-},
-
-
-{
-"day":2,
-
-"title":"병마용 + 화청궁 + 장한가",
-
-"places":[
-
-{
-"name":"진시황 병마용",
-"map":"https://maps.google.com",
-"cost":150
-},
-
-{
-"name":"화청궁",
-"map":"https://maps.google.com",
-"cost":120
-},
-
-{
-"name":"장한가 공연",
-"map":"https://maps.google.com",
-"cost":500
-}
-
-]
-
-},
-
-
-{
-"day":3,
-
-"title":"화산",
-
-"places":[
-
-{
-"name":"화산 서봉 케이블카",
-"map":"https://maps.google.com",
-"cost":200
-},
-
-{
-"name":"장공잔도 (선택)",
-"map":"https://maps.google.com",
-"cost":30
-}
-
-]
-
-},
-
-
-{
-"day":4,
-
-"title":"대안탑 + 대당불야성",
-
-"places":[
-
-{
-"name":"대안탑",
-"map":"https://maps.google.com",
-"cost":40
-},
-
-{
-"name":"대당불야성",
-"map":"https://maps.google.com",
-"cost":0
-}
-
-]
-
-},
-
-
-{
-"day":5,
-
-"title":"성벽 + 쇼핑",
-
-"places":[
-
-{
-"name":"시안 성벽",
-"map":"https://maps.google.com",
-"cost":54
-},
-
-{
-"name":"마트 쇼핑",
-"map":"https://maps.google.com",
-"cost":200
-}
-
-]
-
-},
-
-
-{
-"day":6,
-
-"title":"박물관 + 마사지",
-
-"places":[
-
-{
-"name":"시안박물원",
-"map":"https://maps.google.com",
-"cost":0
-},
-
-{
-"name":"마사지",
-"map":"https://maps.google.com",
-"cost":150
-}
-
-]
-
-},
-
-
-{
-"day":7,
-
-"title":"귀국",
-
-"places":[
-
-{
-"name":"시안 공항",
-"map":"https://maps.google.com",
-"cost":0
-}
-
-]
-
-}
-
-]
-
+  "title": "🇨🇳 Xi'an 2026",
+  "startDate": "2026-07-18",
+  "currency": "CNY",
+  "days": [
+    {
+      "day": 1,
+      "title": "도착 + 종루 + 회민가",
+      "places": [
+        {
+          "name": "⏰ [14:00] 시안 함양국제공항 도착 및 호텔 이동 (DiDi 또는 공항버스 이용)",
+          "map": "https://www.google.com/maps/search/?api=1&query=Xi'an+Xianyang+International+Airport",
+          "cost": 80
+        },
+        {
+          "name": "🏨 [16:00] 종루 근처 호텔 체크인 및 여독 풀기",
+          "map": "https://www.google.com/maps/search/?api=1&query=Bell+Tower+Hotel+Xi'an",
+          "cost": 0
+        },
+        {
+          "name": "🏯 [17:30] 종루(钟楼) & 고루(鼓楼) 관람 및 야경 산책",
+          "map": "https://www.google.com/maps/search/?api=1&query=Bell+Tower+of+Xi'an",
+          "cost": 30
+        },
+        {
+          "name": "🍢 [19:00] 회민가(回民街) 야시장 먹방 (양꼬치, 파오모, 빙펑 맛보기)",
+          "map": "https://www.google.com/maps/search/?api=1&query=Muslim+Quarter+Xi'an",
+          "cost": 100
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "title": "진시황의 하루 (병마용 + 화청궁 + 장한가)",
+      "places": [
+        {
+          "name": "⏰ [07:00] 호텔 조식 / 현지 아침식사 (老米家泡馍 양고기 파오모 추천)",
+          "map": "https://www.google.com/maps/search/?api=1&query=Lao+Mijia+Paomo+Xi'an",
+          "cost": 35
+        },
+        {
+          "name": "🚇 [08:00] 종루역 출발 -> 지하철 6호선+9호선 환승 (화칭츠역 이동)",
+          "map": "https://www.google.com/maps/search/?api=1&query=Bell+Tower+Metro+Station+Xi'an",
+          "cost": 15
+        },
+        {
+          "name": "🏺 [09:20] 진시황 병마용 (Terracotta Army - 추천코스: 3호갱->2호갱->1호갱)",
+          "map": "https://www.google.com/maps/search/?api=1&query=Emperor+Qinshihuang's+Mausoleum+Site+Museum",
+          "cost": 120
+        },
+        {
+          "name": "🍜 [13:10] 점심식사 (秦俑宴 또는 袁家村 - 산시식 정식/비앙비앙면)",
+          "map": "https://www.google.com/maps/search/?api=1&query=Yuanjiacun+Guanzhong+Impression+Xi'an",
+          "cost": 70
+        },
+        {
+          "name": "🏯 [14:40] 화청궁 (Huaqing Palace - 양귀비 온천, 구룡호 관람)",
+          "map": "https://www.google.com/maps/search/?api=1&query=Huaqing+Palace+Xi'an",
+          "cost": 150
+        },
+        {
+          "name": "🍽️ [18:00] 저녁식사 (同盛祥 통성샹 - 양고기 파오모 또는 만두정식)",
+          "map": "https://www.google.com/maps/search/?api=1&query=Tongshengxiang+Xi'an",
+          "cost": 75
+        },
+        {
+          "name": "🎭 [20:10] 《장한가(长恨歌)》 실경 공연 관람 (중앙 블록 추천)",
+          "map": "https://www.google.com/maps/search/?api=1&query=Song+of+Everlasting+Sorrow+Show+Huaqing+Palace",
+          "cost": 500
+        },
+        {
+          "name": "🌙 [21:30] DiDi 호출하여 호텔로 복귀 (약 50~60분 소요 예정)",
+          "map": "https://www.google.com/maps/search/?api=1&query=Bell+Tower+Xi'an",
+          "cost": 110
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "title": "600년 전 명나라 시안을 걷다 (성벽 + 비림 + 영흥방)",
+      "places": [
+        {
+          "name": "⏰ [08:00] 아침식사 (马洪小炒泡馍 마홍샤오차오 추천 - 우육파오모 / 량피)",
+          "map": "https://www.google.com/maps/search/?api=1&query=Mahong+Xiaochao+Paomo+Xi'an",
+          "cost": 35
+        },
+        {
+          "name": "🚶 [09:00] 도보 이동 -> 시안 성벽 남문(영녕문) 도착 및 입장",
+          "map": "https://www.google.com/maps/search/?api=1&query=South+Gate+of+Xi'an+City+Wall+Yongning+Gate",
+          "cost": 54
+        },
+        {
+          "name": "🚲 [09:20] 시안 성벽 관람 & 자전거 대여 (추천코스: 남문 -> 동문 이동 후 반납)",
+          "map": "https://www.google.com/maps/search/?api=1&query=Xi'an+City+Wall+Bicycle+Rental+South+Gate",
+          "cost": 45
+        },
+        {
+          "name": "☕ [11:30] 성벽 카페 휴식 (Manner Coffee 아이스 아메리카노 한 잔)",
+          "map": "https://www.google.com/maps/search/?api=1&query=Manner+Coffee+Xi'an+City+Wall",
+          "cost": 18
+        },
+        {
+          "name": "🍜 [12:20] 점심식사 (爱骅裤带面 아이화 비앙비앙면 또는 柳巷面 기름면)",
+          "map": "https://www.google.com/maps/search/?api=1&query=Aihua+Biang+Biang+Noodles+Xi'an",
+          "cost": 30
+        },
+        {
+          "name": "🏛️ [13:40] 비림박물관 (Beilin Museum - 왕희지·안진경 서예 및 비석 감상)",
+          "map": "https://www.google.com/maps/search/?api=1&query=Stele+Forest+Beilin+Museum+Xi'an",
+          "cost": 65
+        },
+        {
+          "name": "🍢 [16:00] 영흥방 (Yongxingfang 먹거리 골목 - 감떡, 빙펑, 양꼬치 먹방)",
+          "map": "https://www.google.com/maps/search/?api=1&query=Yongxingfang+Food+Street+Xi'an",
+          "cost": 50
+        },
+        {
+          "name": "🍽️ [18:00] 저녁식사 (西安饭庄 산시 요리 코스 또는 德发长 만두 코스)",
+          "map": "https://www.google.com/maps/search/?api=1&query=Xi'an+Fanzhuang+Restaurant",
+          "cost": 100
+        },
+        {
+          "name": "🌃 [20:00] 성벽 남문(永宁门) 광장 야경 & 숨은 포토존 감상",
+          "map": "https://www.google.com/maps/search/?api=1&query=Yongning+Gate+Square+Xi'an",
+          "cost": 0
+        },
+        {
+          "name": "🌙 [21:00] 호텔로 도보 또는 지하철 복귀",
+          "map": "https://www.google.com/maps/search/?api=1&query=Bell+Tower+Xi'an",
+          "cost": 35
+        }
+      ]
+    },
+    {
+      "day": 4,
+      "title": "당나라의 전성기를 만나는 날 (대안탑 + 대당불야성 야경)",
+      "places": [
+        {
+          "name": "⏰ [08:30] 아침식사 (樊记肉夹馍 판지 로우자모 추천 - 로우자모 / 량피 세트)",
+          "map": "https://www.google.com/maps/search/?api=1&query=Fanji+Roujiamo+Xi'an",
+          "cost": 25
+        },
+        {
+          "name": "🚇 [09:30] 종루역 출발 -> 지하철 2호선 탑승 후 샤오자이(小寨)역에서 3호선 환승 -> 대안탑역 도착",
+          "map": "https://www.google.com/maps/search/?api=1&query=Dayanta+Metro+Station+Xi'an",
+          "cost": 4
+        },
+        {
+          "name": "🏯 [10:00] 대안탑 & 대자은사 관람 (추천 포토존: 북광장 전체 전망 / 한적한 남광장)",
+          "map": "https://www.google.com/maps/search/?api=1&query=Giant+Wild+Goose+Pagoda+Xi'an",
+          "cost": 65
+        },
+        {
+          "name": "🍜 [12:20] 점심식사 (西安饭庄 산시 요리 또는 德发长 만두 코스 추천)",
+          "map": "https://www.google.com/maps/search/?api=1&query=Xi'an+Fanzhuang+Dayanta+Branch",
+          "cost": 90
+        },
+        {
+          "name": "☕ [14:00] 대자은사 주변 산책 & 카페 휴식 (Manner Coffee 아이스 아메리카노 / 기념품 쇼핑)",
+          "map": "https://www.google.com/maps/search/?api=1&query=Manner+Coffee+Dayanta+Xi'an",
+          "cost": 20
+        },
+        {
+          "name": "🍽️ [17:30] 저녁식사 (袁家村关中印象 원가촌 산시 먹거리 또는 长安大排档 장안대파당 추천)",
+          "map": "https://www.google.com/maps/search/?api=1&query=Changan+Dapaidang+Xi'an",
+          "cost": 100
+        },
+        {
+          "name": "🌃 [19:00] 대당불야성(大唐不夜城) 산책 (당나라 복장 배우들 공연 & 화려한 조명 거리 감상)",
+          "map": "https://www.google.com/maps/search/?api=1&query=Great+Tang+All+Day+Mall+Xi'an",
+          "cost": 0
+        },
+        {
+          "name": "⛲ [20:30] 대안탑 북광장 음악분수 & 거리 공연 감상",
+          "map": "https://www.google.com/maps/search/?api=1&query=North+Square+of+Big+Wild+Goose+Pagoda+Music+Fountain",
+          "cost": 0
+        },
+        {
+          "name": "🌙 [22:00] 지하철 또는 DiDi 이용하여 호텔로 복귀",
+          "map": "https://www.google.com/maps/search/?api=1&query=Bell+Tower+Xi'an",
+          "cost": 4
+        }
+      ]
+    },
+    {
+      "day": 5,
+      "title": "하늘 위를 걷는 화산 (서봉 케이블카 UP -> 북봉 DOWN)",
+      "places": [
+        {
+          "name": "⏰ [07:30] 호텔 조식 및 출발 (생수 2병, 당분 간식 필수 준비)",
+          "map": "https://www.google.com/maps/search/?api=1&query=Bell+Tower+Xi'an",
+          "cost": 20
+        },
+        {
+          "name": "🚄 [08:30] 고속철 탑승 (시안북역 西安北站 -> 화산북역 华山北站 / 약 30분 소요)",
+          "map": "https://www.google.com/maps/search/?api=1&query=Xi'an+North+Railway+Station",
+          "cost": 55
+        },
+        {
+          "name": "🚌 [09:20] 화산북역 도착 -> 무료 셔틀버스 탑승하여 화산 방문자 센터 이동",
+          "map": "https://www.google.com/maps/search/?api=1&query=Huashan+North+Railway+Station",
+          "cost": 0
+        },
+        {
+          "name": "🎟️ [10:00] 화산 국립공원 입장권 매표 및 서봉행 셔틀 버스 탑승",
+          "map": "https://www.google.com/maps/search/?api=1&query=Mount+Hua+Visitor+Center",
+          "cost": 200
+        },
+        {
+          "name": "🚠 [10:40] 🟢 [필수] 서봉(西峰) 케이블카 탑승 (절벽 사이를 지나는 압도적 절경 / 약 20분)",
+          "map": "https://www.google.com/maps/search/?api=1&query=Mount+Hua+West+Peak+Cable+Car",
+          "cost": 140
+        },
+        {
+          "name": "⛰️ [11:10] 🟢 [필수] 서봉(西峰) 관람 & 남봉(南峰) 이동 (해발 2,154m 화산 최고봉 정복!)",
+          "map": "https://www.google.com/maps/search/?api=1&query=South+Peak+Mount+Hua",
+          "cost": 0
+        },
+        {
+          "name": "🧗 [12:30] 🟡 [선택 코스] 장공잔도(长空栈道) 체험 (현장 대기시간 및 컨디션 보고 결정 / 안전장비 필수)",
+          "map": "https://www.google.com/maps/search/?api=1&query=Plank+Road+in+the+Sky+Mount+Hua",
+          "cost": 30
+        },
+        {
+          "name": "🍙 [13:30] 산 위 휴식 & 간단한 점심식사 (가져간 컵라면, 간식 또는 동봉 근처 휴게소 이용)",
+          "map": "https://www.google.com/maps/search/?api=1&query=East+Peak+Mount+Hua",
+          "cost": 40
+        },
+        {
+          "name": "⛰️ [14:30] 🟢 [필수] 동봉(东峰) -> 중봉(中峰) -> 북봉(北峰) 내리막 능선 트래킹 (약 1.5~2시간)",
+          "map": "https://www.google.com/maps/search/?api=1&query=North+Peak+Mount+Hua",
+          "cost": 0
+        },
+        {
+          "name": "🚠 [16:30] 🟢 [필수] 북봉(北峰) 케이블카 탑승 하산 & 셔틀버스 이동",
+          "map": "https://www.google.com/maps/search/?api=1&query=Mount+Hua+North+Peak+Cable+Car",
+          "cost": 90
+        },
+        {
+          "name": "🚄 [18:00] 고속철 탑승 하행 (화산북역 -> 시안북역) -> 시안 시내 복귀",
+          "map": "https://www.google.com/maps/search/?api=1&query=Huashan+North+Railway+Station",
+          "cost": 55
+        }
+      ]
+    },
+    {
+      "day": 6,
+      "title": "천천히 즐기는 마지막 시안 (섬서역사박물관 + 소안탑 + 쇼핑 & 마사지)",
+      "places": [
+        {
+          "name": "⏰ [08:30] 아침식사 (호텔 조식 또는 현지 식당 간단한 아침)",
+          "map": "https://www.google.com/maps/search/?api=1&query=Bell+Tower+Xi'an",
+          "cost": 30
+        },
+        {
+          "name": "🚇 [09:30] 지하철 2호선 탑승 (종루역 -> 샤오자이 小寨역 이동 후 도보 10분)",
+          "map": "https://www.google.com/maps/search/?api=1&query=Xiaozhai+Metro+Station+Xi'an",
+          "cost": 4
+        },
+        {
+          "name": "🏛️ [10:00] 섬서역사박물관 관람 (Shaanxi History Museum - 오디오 가이드 대여 필수 추천!)",
+          "map": "https://www.google.com/maps/search/?api=1&query=Shaanxi+History+Museum+Xi'an",
+          "cost": 30
+        },
+        {
+          "name": "🍜 [12:40] 점심식사 (子午路张记肉夹馍 로우자모 또는 海底捞 하이디라오 훠궈 추천)",
+          "map": "https://www.google.com/maps/search/?api=1&query=Ziwulu+Zhangji+Roujiamo+Xi'an",
+          "cost": 50
+        },
+        {
+          "name": "🏯 [14:00] 소안탑(小雁塔) & 시안박물원 산책 (대안탑보다 한적하고 고즈넉한 정원 산책)",
+          "map": "https://www.google.com/maps/search/?api=1&query=Small+Wild+Goose+Pagoda+Xi'an",
+          "cost": 0
+        },
+        {
+          "name": "☕ [15:30] 카페 휴식 (Manner Coffee 또는 Starbucks Reserve - 에어컨 아래 오후 휴식)",
+          "map": "https://www.google.com/maps/search/?api=1&query=Starbucks+Reserve+Xi'an",
+          "cost": 25
+        },
+        {
+          "name": "🛍️ [17:00] 기념품 쇼핑 (병마용 미니어처, 당삼채 소품, 마그넷, 빙펑 음료 등 마지막 쇼핑)",
+          "map": "https://www.google.com/maps/search/?api=1&query=SKP+Xi'an+Shopping+Center",
+          "cost": 200
+        },
+        {
+          "name": "💆 [18:30] 🟡 [선택 코스] 발/전신 마사지 (화산 등산 여독 풀기 / 약 60~90분 소요)",
+          "map": "https://www.google.com/maps/search/?api=1&query=Massage+Spa+Near+Bell+Tower+Xi'an",
+          "cost": 180
+        },
+        {
+          "name": "🍽️ [20:00] 마지막 저녁식사 (西安饭庄 산시요리 정식 또는 德发长 만두 코스 추천)",
+          "map": "https://www.google.com/maps/search/?api=1&query=Xi'an+Fanzhuang+Bell+Tower+Branch",
+          "cost": 120
+        },
+        {
+          "name": "🌃 [21:30] 종루 & 고루 야경 산책 후 호텔 복귀 (수하물 액체류 정리 및 알리페이 내역 확인)",
+          "map": "https://www.google.com/maps/search/?api=1&query=Bell+Tower+of+Xi'an",
+          "cost": 6
+        }
+      ]
+    },
+    {
+      "day": 7,
+      "title": "아쉬움을 남기며 천천히 집으로 (마지막 산책 + 공항 이동 & 귀국)",
+      "places": [
+        {
+          "name": "⏰ [08:30] 마지막 아침식사 (樊记肉夹馍 로우자모 또는 KFC 중국 한정 메뉴 추천)",
+          "map": "https://www.google.com/maps/search/?api=1&query=Fanji+Roujiamo+Bell+Tower+Xi'an",
+          "cost": 30
+        },
+        {
+          "name": "🚶 [10:00] 종루(钟楼) & 고루(鼓楼) 주변 골목 아쉬운 마지막 산책 & 짐 챙기기",
+          "map": "https://www.google.com/maps/search/?api=1&query=Bell+Tower+of+Xi'an",
+          "cost": 0
+        },
+        {
+          "name": "☕ [10:30] 시안에서의 마지막 커피 (Manner Coffee - 남은 잔돈 및 Alipay 정산)",
+          "map": "https://www.google.com/maps/search/?api=1&query=Manner+Coffee+Bell+Tower+Xi'an",
+          "cost": 25
+        },
+        {
+          "name": "🛍️ [10:40] 호텔 체크아웃 & 수하물 픽업 (미처 못 산 마그넷, 엽서, 피규어 마지막 구매)",
+          "map": "https://www.google.com/maps/search/?api=1&query=Bell+Tower+Hotel+Xi'an",
+          "cost": 0
+        },
+        {
+          "name": "🚖 [11:00] DiDi 호출 -> 시안 함양국제공항(T5) 이동 (출근길 피한 11시 출발 추천 / 약 60분 소요)",
+          "map": "https://www.google.com/maps/search/?api=1&query=Xi'an+Xianyang+International+Airport+Terminal+5",
+          "cost": 80
+        },
+        {
+          "name": "✈️ [12:10] 공항 도착 & 출국 수속 (14:50 국제선 탑승 / 보조배터리 기내 소지 & 남은 위안화 소진)",
+          "map": "https://www.google.com/maps/search/?api=1&query=Xi'an+Xianyang+International+Airport",
+          "cost": 0
+        }
+      ]
+    }
+  ]
 }
