@@ -13,34 +13,41 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  // firebase.auth()를 직접 사용
-  firebase.auth().onAuthStateChanged(async (user) => {
-    if (user) {
-      currentUser = user;
-      try {
-        const userDoc = await firebase.firestore().collection("users").doc(user.uid).get();
-        if (userDoc.exists) {
-          userRole = userDoc.data().role || "user";
-        } else {
-          await firebase.firestore().collection("users").doc(user.uid).set({
-            email: user.email,
-            role: "user",
-            createdAt: firebase.firestore.FieldValue.serverTimestamp()
-          });
-          userRole = "user";
-        }
-      } catch (err) {
-        console.error("유저 정보 로드 실패:", err);
+ // js/auth.js 내 onAuthStateChanged 함수 부분
+firebase.auth().onAuthStateChanged(async (user) => {
+  if (user) {
+    currentUser = user;
+    
+    // 🔥 수정: 전역 변수 db 대신 firebase.firestore()를 직접 호출
+    try {
+      const userDoc = await firebase.firestore().collection("users").doc(user.uid).get();
+      
+      if (userDoc.exists) {
+        // 데이터베이스에서 role 값을 가져옴 (기본값 user)
+        userRole = userDoc.data().role || "user";
+      } else {
+        // 신규 유저 생성 시 기본 role: "user"로 세팅
+        await firebase.firestore().collection("users").doc(user.uid).set({
+          email: user.email,
+          role: "user",
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        userRole = "user";
       }
-      updateAuthUI(user);
-    } else {
-      currentUser = null;
-      userRole = "user";
-      updateAuthUI(null);
+    } catch (err) {
+      console.error("유저 정보 로드 실패:", err);
+      userRole = "user"; // 에러 시 기본값 유지
     }
-    if (typeof loadExpenses === "function") loadExpenses();
-    if (typeof loadReviews === "function") loadReviews();
-  });
+    
+    updateAuthUI(user);
+  } else {
+    currentUser = null;
+    userRole = "user";
+    updateAuthUI(null);
+  }
+  
+  if (typeof loadExpenses === "function") loadExpenses();
+  if (typeof loadReviews === "function") loadReviews();
 });
 
 // 로그인 처리
