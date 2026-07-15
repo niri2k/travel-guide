@@ -1,6 +1,6 @@
 /* =========================================
    iPhone 14 Pro Max & Mobile Optimized UI
-   Material Design 3 Style Theme
+   Material Design 3 Style Theme (Integrated)
 ========================================= */
 
 body {
@@ -46,7 +46,7 @@ header p {
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
 }
 
-/* ⭐ [개선 포인트] 여행 디테일 카드만 특별히 강조 (배경과 완벽 분리!) */
+/* ⭐ 여행 디테일 카드만 특별히 강조 (배경과 완벽 분리!) */
 #tripDetail.card {
   border-top: 6px solid #2563eb;
   margin-top: 25px;
@@ -128,7 +128,7 @@ h2 {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
 }
 
-/* ⭐ [개선 포인트] 관광지 제목 크기 대폭 확대! */
+/* ⭐ 관광지 제목 크기 대폭 확대 (25px) */
 .place h4 {
   font-size: 25px;
   font-weight: 800;
@@ -148,7 +148,7 @@ h2 {
    3. 머티리얼 디자인 버튼 스타일
 ========================================= */
 
-/* ⭐ [개선 포인트] "지도 보기" - Tonal Material Button (둥근 캡슐형) */
+/* ⭐ "지도 보기" - Tonal Material Button (둥근 캡슐형) */
 .place button {
   background: #eff6ff;
   color: #2563eb;
@@ -171,7 +171,7 @@ h2 {
   transform: scale(0.96);
 }
 
-/* ⭐ [개선 포인트] "비용 추가" / 일반 등록 버튼 - Primary Material Button */
+/* ⭐ "비용 추가" / 일반 등록 버튼 - Primary Material Button */
 #tripDetail button,
 .submit-btn {
   background: linear-gradient(135deg, #2563eb, #1d4ed8);
@@ -191,4 +191,207 @@ h2 {
 #tripDetail button:active,
 .submit-btn:active {
   transform: translateY(2px);
-  box-shadow: 0 2px 8px rgba(37, 99, 235
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+}
+
+/* 후기 등록 버튼은 그린 포인트 */
+button[onclick="addReview()"] {
+  background: linear-gradient(135deg, #10b981, #059669) !important;
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.3) !important;
+}
+
+/* =========================================
+   4. 입력창 (Input & Select) 56px 확대
+========================================= */
+label {
+  display: block;
+  font-size: 16px;
+  font-weight: 700;
+  color: #475569;
+  margin: 18px 0 8px;
+}
+
+/* ⭐ 입력창 높이를 56px로 큼직하게 수정 */
+input,
+select,
+textarea {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  height: 56px; /* 48px -> 56px로 확대 */
+  font-size: 18px;
+  padding: 0 16px;
+  border: 2px solid #e2e8f0;
+  border-radius: 14px;
+  background: #f8fafc;
+  color: #1e293b;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+/* 터치하여 입력 시작 시 스타일 (Focus state) */
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #2563eb;
+  background: #ffffff;
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+textarea {
+  height: 110px;
+  padding: 16px;
+  resize: none;
+}
+
+/* =========================================
+   5. 환율 및 총경비 영역
+========================================= */
+#exchangeRate {
+  font-size: 16px;
+  font-weight: 600;
+  background: #f1f5f9;
+  color: #334155;
+  padding: 14px 18px;
+  border-radius: 14px;
+  border-left: 4px solid #64748b;
+  margin-bottom: 25px;
+}
+
+#totalExpense {
+  font-size: 36px;
+  font-weight: 800;
+  color: #2563eb;
+  margin: 10px 0 5px;
+  letter-spacing: -1px;
+}
+
+#totalKRW {
+  font-size: 20px;
+  font-weight: 600;
+  color: #64748b;
+  margin: 0 0 20px 0;
+}
+
+/* =========================================
+   6. ⭐ 플로팅 액션 버튼 (FAB) & 위로 펼쳐지는 메뉴
+========================================= */
+
+/* 우측 하단 고정 컨테이너 */
+.fab-container {
+  position: fixed;
+  right: 24px;
+  bottom: calc(24px + env(safe-area-inset-bottom));
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+/* 서브 메뉴 목록 기본 상태 (숨김) */
+.fab-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: flex-end;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px) scale(0.95);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ＋ 버튼을 눌러서 열렸을 때 (활성화) */
+.fab-container.open .fab-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+/* 개별 메뉴 아이템 (라벨 + 원형 버튼) */
+.fab-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+/* 왼쪽 텍스트 라벨 (예: 💰 비용 추가) */
+.fab-label {
+  color: #ffffff;
+  background-color: rgba(30, 41, 59, 0.85);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 15px;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  white-space: nowrap;
+  backdrop-filter: blur(4px);
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+/* 서브 원형 버튼 (흰색 배경) */
+.fab-sub-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid #e2e8f0;
+  background-color: #ffffff;
+  color: #1e293b;
+  font-size: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+/* 메뉴 터치/마우스 호버 시 효과 */
+.fab-item:hover .fab-label,
+.fab-item:active .fab-label {
+  background-color: #2563eb;
+  transform: scale(1.03);
+}
+
+.fab-item:hover .fab-sub-btn,
+.fab-item:active .fab-sub-btn {
+  transform: scale(1.08);
+  background-color: #f1f5f9;
+}
+
+/* 메인 플로팅 버튼 (+ 아이콘) */
+.fab-main-btn {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #ffffff;
+  font-size: 36px;
+  font-weight: 300;
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.fab-main-btn:active {
+  transform: scale(0.92);
+}
+
+/* 아이콘 회전 효과 (+ 에서 × 로 회전) */
+.fab-icon {
+  display: inline-block;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  line-height: 1;
+}
+
+.fab-container.open .fab-icon {
+  transform: rotate(45deg);
+}
