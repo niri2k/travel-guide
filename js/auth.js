@@ -71,6 +71,7 @@ function updateAuthUI(user) {
 }
 
 // 로그인
+// js/auth.js의 login 함수 부분
 async function login() {
   const email = document.getElementById("loginEmail").value.trim();
   const password = document.getElementById("loginPassword").value;
@@ -79,10 +80,11 @@ async function login() {
     closeLoginModal();
     alert("로그인 성공!");
   } catch (error) {
-    alert("로그인 실패: " + error.message);
+    // 👈 상세 에러 확인용 코드
+    console.error("Firebase 상세 에러:", error);
+    alert("로그인 실패: " + error.message + "\n(콘솔의 빨간 에러 메시지를 확인해주세요)");
   }
 }
-
 // 회원가입
 async function signUp() {
   const email = document.getElementById("loginEmail").value.trim();
