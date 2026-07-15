@@ -456,6 +456,32 @@ textarea {
   letter-spacing: -0.5px;
 }
 
+
+/* =========================================
+   8. ⭐ 여행 후기 카드 스타일
+========================================= */
+
+/* 후기 카드는 앰버/옐로우 골드 톤으로 따뜻하고 특별하게 강조 */
+.review-card {
+  border: 2px solid #fde68a !important;
+  background: #fffbeb !important;
+  box-shadow: 0 6px 16px rgba(245, 158, 11, 0.08) !important;
+  margin-top: 16px !important;
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 후기 영역 내 select 박스 화살표 디자인 보완 */
+#reviewRating {
+  font-weight: 700;
+  color: #b45309;
+  background-color: #fffbeb;
+  border-color: #fcd34d;
+}
 .day-total-badge .badge-amount span {
   font-size: 17px;
   font-weight: 600;
