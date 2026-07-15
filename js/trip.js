@@ -3,7 +3,7 @@ let currentCurrency = "";
 let tripStartDate = ""; 
 let tripDaysMap = {}; 
 
-// 1. 여행 목록 로드
+
 async function loadTrips() {
   const tripList = document.getElementById("tripList");
   if (!tripList) return;
