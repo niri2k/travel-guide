@@ -1,18 +1,12 @@
 
 let currentTrip="";
-
 let currentCurrency="CNY";
-
 let exchangeRate=0;
-
 let trips=[];
 
 
-
 fetch("data/trips.json")
-
 .then(res=>res.json())
-
 .then(data=>{
 
 
