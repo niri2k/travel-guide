@@ -1,497 +1,202 @@
-/* =========================================
-   iPhone 14 Pro Max & Mobile Optimized UI
-   Material Design 3 Style Theme (Integrated)
-========================================= */
+/* ====================================================
+   style.css - 시안 C (Pastel Blue & iOS Clean Style)
+==================================================== */
 
+/* 1. 전체 배경 및 기본 폰트 설정 */
 body {
-  margin: 0;
-  /* 배경과 카드가 확실히 구분되도록 차분한 블루-그레이 톤 적용 */
-  background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e'); /* 하와이 해변 이미지 */
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  /* 배경 위에 글자가 잘 보이게 하려면 오버레이 추가 */
-  background-color: rgba(255, 255, 255, 0.8); 
-  background-blend-mode: lighten;
-  background: #e8ebf0;
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Noto Sans KR", sans-serif;
-  color: #1e293b;
-  font-size: 18px;
-  /* 아이폰 하단 홈 바(Safe Area) 여백 확보 */
-  padding-bottom: env(safe-area-inset-bottom);
-  -webkit-tap-highlight-color: transparent;
+    background-color: #F5F8FC !important; /* 아주 연한 아이스 블루 톤의 깔끔한 바탕 */
+    color: #1E293B;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
 }
 
-/* --- 상단 헤더 --- */
+/* 2. 상단 헤더 (iOS 글래스모피즘) */
 header {
-  background: linear-gradient(135deg, #1e293b, #0f172a);
-  color: white;
-  padding: 30px 20px 25px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background: rgba(255, 255, 255, 0.85) !important;
+    backdrop-filter: saturate(180%) blur(16px) !important;
+    border-bottom: 1px solid #E2E8F0 !important;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(148, 163, 184, 0.08);
 }
 
 header h1 {
-  margin: 0 0 5px 0;
-  font-size: 28px;
-  font-weight: 800;
-  letter-spacing: -0.5px;
+    color: #0F172A !important;
+    font-weight: 800;
+    letter-spacing: -0.5px;
 }
 
-header p {
-  margin: 0;
-  font-size: 16px;
-  color: #94a3b8;
+header h3 {
+    color: #64748B !important;
 }
 
-/* --- 메인 카드 컨테이너 (여행 목록 & 디테일 공통) --- */
+/* 3. 메인 콘텐츠 컨테이너 및 카드 박스 */
+main {
+    max-width: 600px; /* 모바일 시안처럼 집중도 높은 비율 */
+    margin: 20px auto;
+    padding: 0 16px 100px 16px;
+}
+
 .card {
-  background: white;
-  margin: 20px 16px;
-  padding: 24px;
-  border-radius: 20px;
-  /* 입체감을 주는 고품질 머티리얼 그림자 */
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+    background: #FFFFFF !important;
+    border: 1px solid #E8F0F8 !important;
+    border-radius: 24px !important;
+    box-shadow: 0 10px 30px rgba(148, 163, 184, 0.12) !important;
+    padding: 24px !important;
+    margin-bottom: 20px;
 }
 
-/* ⭐ 여행 디테일 카드만 특별히 강조 (배경과 완벽 분리!) */
-#tripDetail.card {
-  border-top: 6px solid #2563eb;
-  margin-top: 25px;
-  padding-top: 28px;
-  box-shadow: 0 20px 35px -10px rgba(37, 99, 235, 0.15), 0 10px 15px -5px rgba(0, 0, 0, 0.07);
+h2, h3 {
+    color: #0F172A;
+    font-weight: 700;
 }
 
-h2 {
-  margin-top: 10px;
-  margin-bottom: 20px;
-  font-size: 26px;
-  font-weight: 800;
-  color: #0f172a;
+/* 4. 여행 목록 & 일정 개별 카드 (핵심: 홀수/짝수열 파스텔 블루 명암 구별) */
+.trip, .place {
+    border: none !important;
+    border-radius: 18px !important;
+    padding: 18px !important;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 6px rgba(148, 163, 184, 0.05) !important;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.hidden {
-  display: none !important;
+/* 홀수 번째 카드: 아주 연한 화이트 블루 */
+.trip:nth-child(odd), 
+.places-list .place:nth-child(odd) {
+    background-color: #EEF5FC !important; 
 }
 
-/* =========================================
-   1. 여행 목록 스타일 (Trip List)
-========================================= */
-.trip {
-  padding: 18px 20px;
-  margin: 14px 0;
-  border-radius: 16px;
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+/* 짝수 번째 카드: 홀수보다 아주 조금 더 진한 파스텔 블루 (구별 용이) */
+.trip:nth-child(even), 
+.places-list .place:nth-child(even) {
+    background-color: #DCEAF7 !important; 
 }
 
-.trip:active {
-  transform: scale(0.98);
-  background: #f1f5f9;
-  border-color: #cbd5e1;
+/* 카드 터치 시 모션 효과 */
+.trip:active, .place:active {
+    transform: scale(0.98);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15) !important;
 }
 
-.trip h3 {
-  margin: 0 0 8px 0;
-  font-size: 21px;
-  font-weight: 700;
-  color: #1e293b;
+/* 5. 텍스트 및 링크 포인트 컬러 */
+.trip h4, .place h4 {
+    color: #1E3A5F !important; /* 깊고 세련된 네이비 블루 */
+    font-size: 16px;
+    font-weight: 700;
 }
 
-.trip p {
-  margin: 0;
-  font-size: 15px;
-  color: #64748b;
+.trip p, .place span {
+    color: #475569 !important;
 }
 
-/* =========================================
-   2. 일정 및 관광지 (Place Items)
-========================================= */
-.day {
-  border-bottom: 2px dashed #e2e8f0;
-  padding: 24px 0 15px;
+/* 화살표 아이콘 (〉) */
+.trip span, .place div > span:last-child {
+    color: #94A3B8 !important;
+    font-weight: bold;
 }
 
-.day:last-child {
-  border-bottom: none;
-}
-
-.day h3 {
-  font-size: 22px;
-  font-weight: 800;
-  color: #2563eb;
-  line-height: 1.4;
-  margin-bottom: 18px;
-}
-
-/* 관광지 장소 카드 */
-.place {
-  background: #f8fafc;
-  border: 1px solid #f1f5f9;
-  padding: 20px;
-  margin: 16px 0;
-  border-radius: 18px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
-}
-
-/* ⭐ 관광지 제목 크기 대폭 확대 (25px) */
-.place h4 {
-  font-size: 25px;
-  font-weight: 800;
-  color: #0f172a;
-  margin: 0 0 10px 0;
-  letter-spacing: -0.5px;
-}
-
-.place p {
-  font-size: 17px;
-  color: #475569;
-  line-height: 1.5;
-  margin: 8px 0 16px;
-}
-
-/* =========================================
-   3. 머티리얼 디자인 버튼 스타일
-========================================= */
-
-/* ⭐ "지도 보기" - Tonal Material Button (둥근 캡슐형) */
-.place button {
-  background: #eff6ff;
-  color: #2563eb;
-  border: 1px solid #dbeafe;
-  font-size: 16px;
-  font-weight: 700;
-  padding: 10px 20px;
-  height: 44px;
-  border-radius: 22px; /* 완전한 둥근 캡슐 모양 */
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
-  box-shadow: none;
-}
-
-.place button:active {
-  background: #dbeafe;
-  transform: scale(0.96);
-}
-
-/* ⭐ "비용 추가" / 일반 등록 버튼 - Primary Material Button */
-#tripDetail button,
-.submit-btn {
-  background: linear-gradient(135deg, #2563eb, #1d4ed8);
-  color: white;
-  border: none;
-  width: 100%;
-  height: 56px; /* 터치하기 가장 편안한 56px */
-  font-size: 18px;
-  font-weight: 700;
-  border-radius: 16px;
-  margin-top: 15px;
-  cursor: pointer;
-  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.3);
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-#tripDetail button:active,
-.submit-btn:active {
-  transform: translateY(2px);
-  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
-}
-
-/* 후기 등록 버튼은 그린 포인트 */
-button[onclick="addReview()"] {
-  background: linear-gradient(135deg, #10b981, #059669) !important;
-  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.3) !important;
-}
-
-/* =========================================
-   4. 입력창 (Input & Select) 56px 확대
-========================================= */
-label {
-  display: block;
-  font-size: 16px;
-  font-weight: 700;
-  color: #475569;
-  margin: 18px 0 8px;
-}
-
-/* ⭐ 입력창 높이를 56px로 큼직하게 수정 */
-input,
-select,
-textarea {
-  display: block;
-  width: 100%;
-  box-sizing: border-box;
-  height: 56px; /* 48px -> 56px로 확대 */
-  font-size: 18px;
-  padding: 0 16px;
-  border: 2px solid #e2e8f0;
-  border-radius: 14px;
-  background: #f8fafc;
-  color: #1e293b;
-  font-family: inherit;
-  transition: all 0.2s ease;
-}
-
-/* 터치하여 입력 시작 시 스타일 (Focus state) */
-input:focus,
-select:focus,
-textarea:focus {
-  border-color: #2563eb;
-  background: #ffffff;
-  outline: none;
-  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
-}
-
-textarea {
-  height: 110px;
-  padding: 16px;
-  resize: none;
-}
-
-/* =========================================
-   5. 환율 및 총경비 영역
-========================================= */
-#exchangeRate {
-  font-size: 16px;
-  font-weight: 600;
-  background: #f1f5f9;
-  color: #334155;
-  padding: 14px 18px;
-  border-radius: 14px;
-  border-left: 4px solid #64748b;
-  margin-bottom: 25px;
+/* 6. 예산 및 비용 표시 박스 */
+#tripDetail div[style*="background: #f8fafc"] {
+    background: linear-gradient(135deg, #E8F2FC 0%, #DCEAF7 100%) !important;
+    border: 1px solid #BFDBFE !important;
+    border-radius: 20px !important;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.08) !important;
 }
 
 #totalExpense {
-  font-size: 36px;
-  font-weight: 800;
-  color: #2563eb;
-  margin: 10px 0 5px;
-  letter-spacing: -1px;
+    color: #1D4ED8 !important; /* 쨍한 로열 블루로 강조 */
+    font-weight: 800;
 }
 
-#totalKRW {
-  font-size: 20px;
-  font-weight: 600;
-  color: #64748b;
-  margin: 0 0 20px 0;
-}
-
-/* =========================================
-   6. ⭐ 플로팅 액션 버튼 (FAB) & 위로 펼쳐지는 메뉴
-========================================= */
-
-/* 우측 하단 고정 컨테이너 */
+/* 7. 우측 하단 플로팅 액션 버튼 (FAB '+' 버튼) */
 .fab-container {
-  position: fixed;
-  right: 24px;
-  bottom: calc(24px + env(safe-area-inset-bottom));
-  z-index: 9999;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 9999;
 }
 
-/* 서브 메뉴 목록 기본 상태 (숨김) */
-.fab-menu {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 16px 0;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  align-items: flex-end;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(20px) scale(0.95);
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* ＋ 버튼을 눌러서 열렸을 때 (활성화) */
-.fab-container.open .fab-menu {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0) scale(1);
-}
-
-/* 개별 메뉴 아이템 (라벨 + 원형 버튼) */
-.fab-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  cursor: pointer;
-}
-
-/* 왼쪽 텍스트 라벨 (예: 💰 비용 추가) */
-.fab-label {
-  color: #ffffff;
-  background-color: rgba(30, 41, 59, 0.85);
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-size: 15px;
-  font-weight: 700;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  white-space: nowrap;
-  backdrop-filter: blur(4px);
-  transition: transform 0.2s, background-color 0.2s;
-}
-
-/* 서브 원형 버튼 (흰색 배경) */
-.fab-sub-btn {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  border: 1px solid #e2e8f0;
-  background-color: #ffffff;
-  color: #1e293b;
-  font-size: 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.2s, background-color 0.2s;
-}
-
-/* 메뉴 터치/마우스 호버 시 효과 */
-.fab-item:hover .fab-label,
-.fab-item:active .fab-label {
-  background-color: #2563eb;
-  transform: scale(1.03);
-}
-
-.fab-item:hover .fab-sub-btn,
-.fab-item:active .fab-sub-btn {
-  transform: scale(1.08);
-  background-color: #f1f5f9;
-}
-
-/* 메인 플로팅 버튼 (+ 아이콘) */
 .fab-main-btn {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  border: none;
-  background: linear-gradient(135deg, #2563eb, #1d4ed8);
-  color: #ffffff;
-  font-size: 36px;
-  font-weight: 300;
-  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.3s, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #60A5FA 0%, #3B82F6 100%) !important; /* 파스텔 블루 그라데이션 */
+    color: white !important;
+    font-size: 30px;
+    font-weight: 300;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.45) !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.fab-main-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 12px 30px rgba(59, 130, 246, 0.6) !important;
 }
 
 .fab-main-btn:active {
-  transform: scale(0.92);
+    transform: scale(0.95);
 }
 
-/* 아이콘 회전 효과 (+ 에서 × 로 회전) */
-.fab-icon {
-  display: inline-block;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  line-height: 1;
+/* 서브 메뉴 버튼 스타일 */
+.fab-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 15px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
 }
 
-.fab-container.open .fab-icon {
-  transform: rotate(45deg);
+.fab-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
 }
 
-
-/* =========================================
-   7. ⭐ 일자별 지출 카드 & 총 합계 배지 스타일
-========================================= */
-
-/* 지출 카드: 방문 예정 장소와 확실히 구분되도록 에메랄드 그린 톤 적용 */
-.expense-card {
-  border: 2px solid #a7f3d0 !important;
-  background: #ecfdf5 !important;
-  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.08) !important;
-  margin-top: 12px !important;
+.fab-item span {
+    background: #1E293B;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 
-/* Day별 총합계 컨테이너 */
-.day-total-box {
-  margin: 20px 0 30px;
-  animation: fadeIn 0.3s ease;
+.fab-sub-btn {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    box-shadow: 0 4px 12px rgba(148, 163, 184, 0.2);
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-5px); }
-  to { opacity: 1; transform: translateY(0); }
+/* 8. 로그인 모달 및 공통 버튼 */
+button#loginBtn {
+    background: linear-gradient(135deg, #60A5FA 0%, #3B82F6 100%) !important;
+    border-radius: 14px !important;
+    padding: 8px 18px !important;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3) !important;
 }
 
-/* Day별 총합계 배지 디자인 (고급스러운 블루 그래디언트 박스) */
-.day-total-badge {
-  background: linear-gradient(135deg, #eff6ff, #dbeafe);
-  border: 2px solid #bfdbfe;
-  padding: 18px 22px;
-  border-radius: 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.1);
-}
-
-.day-total-badge .badge-title {
-  align-self: flex-start;
-  font-size: 14px;
-  font-weight: 800;
-  color: #1d4ed8;
-  background: rgba(255, 255, 255, 0.8);
-  padding: 4px 12px;
-  border-radius: 10px;
-}
-
-.day-total-badge .badge-amount {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-top: 4px;
-}
-
-.day-total-badge .badge-amount strong {
-  font-size: 26px;
-  font-weight: 800;
-  color: #1e3a8a;
-  letter-spacing: -0.5px;
-}
-
-
-/* =========================================
-   8. ⭐ 여행 후기 카드 스타일
-========================================= */
-
-/* 후기 카드는 앰버/옐로우 골드 톤으로 따뜻하고 특별하게 강조 */
-.review-card {
-  border: 2px solid #fde68a !important;
-  background: #fffbeb !important;
-  box-shadow: 0 6px 16px rgba(245, 158, 11, 0.08) !important;
-  margin-top: 16px !important;
-  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* 후기 영역 내 select 박스 화살표 디자인 보완 */
-#reviewRating {
-  font-weight: 700;
-  color: #b45309;
-  background-color: #fffbeb;
-  border-color: #fcd34d;
-}
-.day-total-badge .badge-amount span {
-  font-size: 17px;
-  font-weight: 600;
-  color: #475569;
+.hidden {
+    display: none !important;
 }
