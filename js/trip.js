@@ -2,52 +2,68 @@ let currentTrip = "";
 let currentCurrency = "";
 let tripStartDate = ""; 
 let tripDaysMap = {}; 
+let currentTripData = null;
 
-// 1. 여행 목록 로드
-async function loadTrips() {
+// 1. [핵심 수정] 여행 목록 로드 (로그인 검증 및 내 데이터만 필터링)
+function loadTrips() {
   const tripList = document.getElementById("tripList");
   if (!tripList) return;
-  tripList.innerHTML = "불러오는 중...";
 
-  try {
-    const snapshot = await firebase.firestore().collection("trips").get();
-    ㅁlet currentTrip = "";
-let currentCurrency = "";
-let tripStartDate = ""; 
-let tripDaysMap = {}; 
-let currentTripData = null; // 상세 페이지에서 참조할 수 있도록 전역에 저장
-
-// 1. 여행 목록 로드 (Firestore 사용)
-async function loadTrips() {
-  const tripList = document.getElementById("tripList");
-  if (!tripList) return;
-  tripList.innerHTML = "불러오는 중...";
-
-  try {
-    const snapshot = await firebase.firestore().collection("trips").get();
-    
-    if (snapshot.empty) {
-      tripList.innerHTML = '<p style="text-align:center; padding:20px;">아직 등록된 여행이 없습니다.</p>';
+  // Firebase 로그인 상태 감지
+  firebase.auth().onAuthStateChanged(async (user) => {
+    // [로그아웃 상태] 데이터를 절대 불러오지 않고 자물쇠 화면 표시
+    if (!user) {
+      tripList.innerHTML = `
+        <div style="text-align:center; padding: 40px 20px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 16px; margin: 10px 0;">
+          <div style="font-size: 48px; margin-bottom: 12px;">🔒</div>
+          <h3 style="margin: 0 0 8px 0; color: #1e293b; font-size: 18px;">로그인이 필요한 서비스입니다</h3>
+          <p style="margin: 0; color: #64748b; font-size: 14px; line-height: 1.5;">
+            우측 상단의 <strong>[로그인]</strong> 버튼을 눌러<br>나만의 실시간 여행 가이드북을 확인하세요!
+          </p>
+        </div>
+      `;
       return;
     }
 
-    let html = "<ul style='list-style:none; padding:0; margin:0;'>";
-    snapshot.forEach(doc => {
-      const data = doc.data();
-      html += `<li style="cursor:pointer; padding:15px; border-bottom:1px solid #eee; font-size:16px; font-weight:bold; color:#1e293b; display:flex; justify-content:space-between; align-items:center;" onclick="openTrip('${doc.id}')">
-                <span>✈️ ${data.title}</span>
-                <span style="font-size:13px; color:#64748b; font-weight:normal;">${data.startDate || '날짜 미정'} 〉</span>
-               </li>`;
-    });
-    html += "</ul>";
-    tripList.innerHTML = html;
-  } catch (err) {
-    console.error("여행 목록 로드 실패:", err);
-    tripList.innerHTML = "여행 목록을 불러올 수 없습니다.";
-  }
+    // [로그인 상태] 본인의 데이터만 안전하게 호출
+    tripList.innerHTML = "<p style='text-align:center; color:#64748b; padding:20px;'>여행 목록을 불러오는 중...</p>";
+
+    try {
+      // 본인 계정(uid)과 일치하는 여행 데이터만 가져오도록 필터링 (.where 추가)
+      const snapshot = await firebase.firestore().collection("trips")
+        .where("uid", "==", user.uid)
+        .get();
+      
+      if (snapshot.empty) {
+        tripList.innerHTML = '<p style="text-align:center; padding:30px; color:#64748b; background:#f8fafc; border-radius:12px;">아직 등록된 여행이 없습니다.<br>우측 하단 ＋ 버튼을 눌러 새 여행을 만들어보세요!</p>';
+        return;
+      }
+
+      // 여행 목록 렌더링
+      let html = "<ul style='list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px;'>";
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        html += `
+          <li style="cursor:pointer; padding:16px; background:#fff; border:1px solid #e2e8f0; border-radius:14px; box-shadow:0 2px 4px rgba(0,0,0,0.03); display:flex; justify-content:space-between; align-items:center; transition: all 0.2s;" onclick="openTrip('${doc.id}')">
+            <div>
+              <div style="font-size:17px; font-weight:bold; color:#1e293b; margin-bottom:4px;">✈️ ${data.title}</div>
+              <div style="font-size:13px; color:#64748b;">📅 ${data.startDate || '날짜 미정'} 출발</div>
+            </div>
+            <span style="font-size:13px; font-weight:bold; color:#2563eb; background:#eff6ff; padding:6px 12px; border-radius:8px; border:1px solid #bfdbfe;">상세보기 〉</span>
+          </li>
+        `;
+      });
+      html += "</ul>";
+      tripList.innerHTML = html;
+
+    } catch (err) {
+      console.error("여행 목록 로드 실패:", err);
+      tripList.innerHTML = "<p style='color:#ef4444; text-align:center; padding:20px;'>여행 목록을 불러올 수 없습니다.<br>네트워크 상태나 보안 규칙을 확인해 주세요.</p>";
+    }
+  });
 }
 
-// 2. 특정 여행 상세 보기 (Firestore 사용)
+// 2. 특정 여행 상세 보기
 async function openTrip(tripId) {
   currentTrip = tripId;
   try {
@@ -55,12 +71,12 @@ async function openTrip(tripId) {
     if (!doc.exists) return;
     
     const data = doc.data();
-    currentTripData = data; // 전역 저장 (상세 페이지에서 사용)
+    currentTripData = data; 
     
-    // 화면 전환
     document.getElementById("tripDetail").classList.remove("hidden");
     const placeSection = document.getElementById("placeDetailSection");
     if (placeSection) placeSection.classList.add("hidden");
+    window.scrollTo(0, 0);
 
     document.getElementById("tripTitle").innerHTML = data.title;
     currentCurrency = data.currency || "CNY";
@@ -88,7 +104,6 @@ async function openTrip(tripId) {
 
         if (day.places && Array.isArray(day.places)) {
           day.places.forEach((place, placeIdx) => {
-            // 다국어 필드 호환성 처리
             const nameKr = place.name_kr || place.name || "이름 없음";
             const nameCn = place.name_cn || "";
             const nameEn = place.name_en || "";
@@ -96,7 +111,7 @@ async function openTrip(tripId) {
             const safeMapUrl = place.mapUrl || place.map || "";
 
             html += `
-              <div class="place" style="border: 1px solid #e2e8f0; padding: 14px; border-radius: 12px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.05); transition: all 0.2s;">
+              <div class="place" style="border: 1px solid #e2e8f0; padding: 14px; border-radius: 12px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
                 <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
                   <h4 onclick="openPlaceDetailByIndex(${dayIdx}, ${placeIdx})" style="margin: 0; color: #2563eb; cursor: pointer; font-size: 16px; display: flex; flex-direction: column; gap: 2px;">
                     <span>📍 ${nameKr} <span style="font-size: 12px; color: #2563eb; background: #eff6ff; padding: 2px 6px; border-radius: 4px; border: 1px solid #bfdbfe; margin-left: 4px;">상세보기 〉</span></span>
@@ -128,85 +143,5 @@ async function openTrip(tripId) {
   }
 }
 
-document.addEventListener("DOMContentLoaded", loadTrips);
-    if (snapshot.empty) {
-      tripList.innerHTML = '<p style="text-align:center; padding:20px;">아직 등록된 여행이 없습니다.</p>';
-      return;
-    }
-
-    let html = "<ul>";
-    snapshot.forEach(doc => {
-      const data = doc.data();
-      html += `<li style="cursor:pointer; padding:10px; border-bottom:1px solid #eee;" onclick="openTrip('${doc.id}')">
-                ✈️ ${data.title} (${data.startDate || '날짜 미정'})
-               </li>`;
-    });
-    html += "</ul>";
-    tripList.innerHTML = html;
-  } catch (err) {
-    console.error("여행 목록 로드 실패:", err);
-    tripList.innerHTML = "여행 목록을 불러올 수 없습니다.";
-  }
-}
-
-// 2. 특정 여행 상세 보기
-async function openTrip(tripId) {
-  currentTrip = tripId;
-  try {
-    const doc = await firebase.firestore().collection("trips").doc(tripId).get();
-    if (!doc.exists) return;
-    
-    const data = doc.data();
-    document.getElementById("tripDetail").classList.remove("hidden");
-    document.getElementById("tripTitle").innerHTML = data.title;
-    currentCurrency = data.currency;
-    tripStartDate = data.startDate || "2026-01-01"; 
-
-    let html = "";
-    tripDaysMap = {};
-
-    if (data.days && Array.isArray(data.days)) {
-      data.days.forEach((day) => {
-        let dateObj = new Date(tripStartDate);
-        dateObj.setDate(dateObj.getDate() + (day.day - 1));
-        let dateStr = dateObj.toISOString().substring(0, 10);
-
-        tripDaysMap[dateStr] = day.day;
-
-        html += `
-          <div class="day" id="day-section-${dateStr}">
-            <h3>DAY ${day.day} <span style="font-size:16px; font-weight:normal; color:#64748b;">(${dateStr})</span><br>${day.title}</h3>
-            <div class="places-list">
-        `;
-
-        if (day.places) {
-          day.places.forEach((place) => {
-            let safeMapUrl = place.map ? place.map.replace(/'/g, "%27") : "";
-            // 버튼에 onclick 대신 data 속성을 부여하여 Firebase의 링크 간섭을 차단
-            html += `
-              <div class="place">
-                <h4>📍 ${place.name}</h4>
-                <p>💰 예상 비용 : ${place.cost} ${data.currency}</p>
-                <button class="map-btn" data-url="${safeMapUrl}">🗺️ 지도 보기</button>
-              </div>
-            `;
-          });
-        }
-
-        html += `</div> 
-                 <div id="day-expenses-${dateStr}" class="day-expenses-container"></div>
-                 <div id="day-total-${dateStr}" class="day-total-box hidden"></div>
-           </div>`;
-      });
-    }
-
-    document.getElementById("schedule").innerHTML = html;
-    
-    if (typeof loadExpenses === "function") loadExpenses();
-    if (typeof loadReviews === "function") loadReviews();
-  } catch (err) {
-    console.error("여행 데이터 로드 실패:", err);
-  }
-}
-
+// 페이지가 로드되면 목록 불러오기 실행
 document.addEventListener("DOMContentLoaded", loadTrips);
