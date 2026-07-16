@@ -1,4 +1,7 @@
-// js/place-detail.js
+// ====================================================
+// js/place-detail.js (구글 맵스 아이콘 탑재 완벽본)
+// ====================================================
+
 let currentPlaceId = null;
 let lastReviewDoc = null; // 10개씩 페이징하기 위한 기준 커서
 const REVIEWS_PER_PAGE = 10;
@@ -11,11 +14,10 @@ function openPlaceDetailByIndex(dayIdx, placeIdx) {
   const place = currentTripData.days[dayIdx].places[placeIdx];
   if (!place) return;
 
-  // 고유 장소 ID 생성 (DB에 id가 없으면 한글이름+영어이름을 조합하여 고유 ID로 사용)
   const nameKr = place.name_kr || place.name || "unknown";
   currentPlaceId = place.id || `${currentTrip}_${nameKr.replace(/\s+/g, '_')}`;
 
-  // 화면 전환 (여행 상세는 숨기고 장소 상세를 표시)
+  // 화면 전환
   document.getElementById("tripDetail").classList.add("hidden");
   const detailSection = document.getElementById("placeDetailSection");
   detailSection.classList.remove("hidden");
@@ -32,7 +34,9 @@ function openPlaceDetailByIndex(dayIdx, placeIdx) {
   const description = place.description || "이 장소에 대한 간략한 소개가 아직 등록되지 않았습니다. 첫 후기를 남겨 정보를 공유해 주세요!";
   const cost = place.cost || 0;
   const currency = currentCurrency || "CNY";
+  const safeMapUrl = place.mapUrl || place.map || "";
 
+  // [수정] 박스 우측 상단에 구글 맵스 공식 아이콘 배치 (map-btn 클래스로 map.js와 연동)
   content.innerHTML = `
     <div style="position: relative; width: 100%; height: 240px; border-radius: 16px; overflow: hidden; background: #cbd5e1; margin-bottom: 18px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
       <img src="${imageUrl}" alt="${nameKr}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800'">
@@ -42,8 +46,22 @@ function openPlaceDetailByIndex(dayIdx, placeIdx) {
       </div>
     </div>
     
-    <div style="background: #f8fafc; border: 1px solid #e2e8f0; padding: 16px; border-radius: 12px; font-size: 14px; margin-bottom: 20px; line-height: 1.8; color:#334155;">
-      <div style="display:flex; gap:8px;"><span style="width:20px;">📍</span> <div><strong>주소:</strong> ${address}</div></div>
+    <div style="background: #f8fafc; border: 1px solid #e2e8f0; padding: 18px; border-radius: 14px; font-size: 14px; margin-bottom: 20px; line-height: 1.8; color:#334155; position: relative;">
+      ${safeMapUrl ? `
+        <div style="position: absolute; top: 16px; right: 16px; text-align: center; z-index: 10;">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/a/aa/Google_Maps_icon_%282020%29.svg" 
+               alt="Google Maps" 
+               class="map-btn" 
+               data-url="${safeMapUrl}" 
+               style="width: 44px; height: 44px; cursor: pointer; transition: transform 0.2s; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));" 
+               title="구글 지도에서 열기"
+               onmouseover="this.style.transform='scale(1.1)'" 
+               onmouseout="this.style.transform='scale(1)'">
+          <div style="font-size: 11px; color: #64748b; margin-top: 2px; font-weight: bold;">지도 열기</div>
+        </div>
+      ` : ''}
+      
+      <div style="display:flex; gap:8px; padding-right: 60px;"><span style="width:20px;">📍</span> <div><strong>주소:</strong> ${address}</div></div>
       <div style="display:flex; gap:8px;"><span style="width:20px;">📞</span> <div><strong>전화:</strong> ${phone}</div></div>
       <div style="display:flex; gap:8px;"><span style="width:20px;">⏰</span> <div><strong>운영:</strong> ${openHours}</div></div>
       <div style="display:flex; gap:8px;"><span style="width:20px;">💰</span> <div><strong>예상 비용:</strong> <span style="color:#2563eb; font-weight:bold;">${cost} ${currency}</span></div></div>
@@ -85,7 +103,6 @@ async function loadReviewsForPlace() {
       .orderBy("createdAt", "desc")
       .limit(REVIEWS_PER_PAGE);
 
-    // 이전 페이지네이션 커서가 존재하면 그 다음부터 10개를 가져옴
     if (lastReviewDoc) {
       query = query.startAfter(lastReviewDoc);
     }
@@ -100,7 +117,6 @@ async function loadReviewsForPlace() {
       return;
     }
 
-    // 다음 페이지네이션을 위해 마지막 문서 저장
     lastReviewDoc = snapshot.docs[snapshot.docs.length - 1];
 
     let html = "";
@@ -127,7 +143,6 @@ async function loadReviewsForPlace() {
       reviewContainer.insertAdjacentHTML('beforeend', html);
     }
 
-    // 가져온 데이터가 10개보다 적으면 더보기 버튼 숨기기
     if (snapshot.docs.length < REVIEWS_PER_PAGE) {
       loadMoreBtn.classList.add("hidden");
     } else {
@@ -181,7 +196,6 @@ async function submitReview() {
     alert("성공적으로 후기가 등록되었습니다!");
     document.getElementById("reviewComment").value = "";
     
-    // 후기 목록 새로고침 (처음부터 다시 불러옴)
     document.getElementById("placeReviewList").innerHTML = "";
     lastReviewDoc = null;
     loadReviewsForPlace();

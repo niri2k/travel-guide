@@ -1,5 +1,5 @@
 // ====================================================
-// js/trip.js (카테고리 디자인 + 보안 검증 완벽 통합본)
+// js/trip.js (카드 터치 방식 & 타임라인 지도 제거본)
 // ====================================================
 
 let currentTrip = "";
@@ -15,7 +15,6 @@ function loadTrips() {
 
   // Firebase 로그인 상태 감지
   firebase.auth().onAuthStateChanged(async (user) => {
-    // [로그아웃 상태] 예전 데이터나 목록을 절대 보여주지 않고 자물쇠 화면 표시
     if (!user) {
       tripList.innerHTML = `
         <div style="text-align:center; padding: 40px 20px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 16px; margin: 10px 0;">
@@ -29,11 +28,9 @@ function loadTrips() {
       return;
     }
 
-    // [로그인 상태] 로딩 안내 띄우기
     tripList.innerHTML = "<p style='text-align:center; color:#64748b; padding:30px 0;'>✈️ 내 여행 목록을 불러오는 중...</p>";
 
     try {
-      // 본인 계정(uid)의 데이터만 Firestore에서 안전하게 조회
       const snapshot = await firebase.firestore().collection("trips")
         .where("uid", "==", user.uid)
         .get();
@@ -48,22 +45,19 @@ function loadTrips() {
         return;
       }
 
-      // 카테고리 초기화 (마음에 드셨던 UI 구조 적용!)
       let categories = {
         upcoming: { title: "✈️ 다가올 여행", items: [] },
         active:   { title: "🌏 여행 중", items: [] },
         memory:   { title: "📸 여행의 기억", items: [] }
       };
 
-      const today = new Date().toISOString().substring(0, 10); // 오늘 날짜 (YYYY-MM-DD)
+      const today = new Date().toISOString().substring(0, 10);
 
-      // 날짜를 비교하여 자동으로 카테고리 분류하기
       snapshot.forEach(doc => {
         const data = doc.data();
-        data.id = doc.id; // 문서 고유 ID 저장
+        data.id = doc.id;
         
         const start = data.startDate || "2099-01-01";
-        // 종료일이 따로 없으면 시작일 기준으로 일주일(7일) 뒤를 종료일로 임시 계산
         let end = data.endDate;
         if (!end && data.startDate) {
           let tempDate = new Date(data.startDate);
@@ -73,7 +67,6 @@ function loadTrips() {
           end = start;
         }
 
-        // 오늘 날짜와 비교하여 분배
         if (today < start) {
           categories.upcoming.items.push(data);
         } else if (today >= start && today <= end) {
@@ -83,7 +76,6 @@ function loadTrips() {
         }
       });
 
-      // HTML 화면 렌더링
       let html = "";
       Object.values(categories).forEach(category => {
         html += `<h3 style="margin: 25px 0 12px 0; color: #1e293b; font-size: 18px; display:flex; align-items:center; gap:6px;">${category.title}</h3>`;
@@ -98,7 +90,7 @@ function loadTrips() {
                   <h4 style="margin: 0 0 6px 0; font-size: 17px; color: #1e293b; font-weight: bold;">${trip.title}</h4>
                   <p style="margin: 0; font-size: 13px; color: #64748b;">📅 ${trip.startDate || '날짜 미정'} ${trip.endDate ? `~ ${trip.endDate}` : ''}</p>
                 </div>
-                <span style="font-size: 13px; font-weight: bold; color: #2563eb; background: #eff6ff; padding: 8px 14px; border-radius: 10px; border: 1px solid #bfdbfe; white-space: nowrap;">상세보기 〉</span>
+                <span style="font-size: 18px; color: #cbd5e1; font-weight: bold;">〉</span>
               </div>
             `;
           });
@@ -124,7 +116,6 @@ async function openTrip(tripId) {
     const data = doc.data();
     currentTripData = data; 
     
-    // 화면 전환 (목록 숨기고 상세 표시)
     document.getElementById("tripDetail").classList.remove("hidden");
     const placeSection = document.getElementById("placeDetailSection");
     if (placeSection) placeSection.classList.add("hidden");
@@ -160,20 +151,16 @@ async function openTrip(tripId) {
             const nameCn = place.name_cn || "";
             const nameEn = place.name_en || "";
             const cost = place.cost || 0;
-            const safeMapUrl = place.mapUrl || place.map || "";
 
+            // [수정] 카드 전체에 onclick 적용, 밑줄 제거, 지도 버튼 완벽 삭제
             html += `
-              <div class="place" style="border: 1px solid #e2e8f0; padding: 16px; border-radius: 14px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;">
-                  <h4 onclick="openPlaceDetailByIndex(${dayIdx}, ${placeIdx})" style="margin: 0; color: #2563eb; cursor: pointer; font-size: 16px; display: flex; flex-direction: column; gap: 4px;">
-                    <span>📍 ${nameKr} <span style="font-size: 12px; color: #2563eb; background: #eff6ff; padding: 2px 6px; border-radius: 4px; border: 1px solid #bfdbfe; margin-left: 4px;">상세보기 〉</span></span>
-                    ${nameCn ? `<span style="font-size: 13px; color: #64748b; font-weight: normal;">${nameCn} ${nameEn ? `(${nameEn})` : ''}</span>` : ''}
-                  </h4>
+              <div class="place" onclick="openPlaceDetailByIndex(${dayIdx}, ${placeIdx})" style="cursor: pointer; border: 1px solid #e2e8f0; padding: 16px; border-radius: 14px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.05); transition: all 0.2s; display: flex; justify-content: space-between; align-items: center;">
+                <div style="display: flex; flex-direction: column; gap: 4px;">
+                  <h4 style="margin: 0; font-size: 16px; color: #1e293b; font-weight: bold;">📍 ${nameKr}</h4>
+                  ${nameCn ? `<span style="font-size: 13px; color: #64748b; font-weight: normal;">${nameCn} ${nameEn ? `(${nameEn})` : ''}</span>` : ''}
+                  <span style="font-size: 13px; color: #475569; font-weight: 500; margin-top: 4px;">💰 예상 비용 : <strong style="color:#2563eb;">${cost} ${currentCurrency}</strong></span>
                 </div>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px; padding-top: 12px; border-top: 1px dashed #f1f5f9;">
-                  <span style="font-size: 14px; color: #475569; font-weight: 500;">💰 예상 비용 : <strong style="color:#1e293b;">${cost} ${currentCurrency}</strong></span>
-                  ${safeMapUrl ? `<button class="map-btn" data-url="${safeMapUrl}" style="padding: 6px 12px; font-size: 12px; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; color: #334155; font-weight: bold; cursor: pointer;">🗺️ 지도 보기</button>` : ''}
-                </div>
+                <div style="font-size: 18px; color: #cbd5e1; font-weight: bold; padding-left: 10px;">〉</div>
               </div>
             `;
           });
